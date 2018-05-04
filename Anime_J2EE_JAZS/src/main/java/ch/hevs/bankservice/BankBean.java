@@ -13,7 +13,7 @@ import ch.hevs.businessobject.Client;
 @Stateless
 public class BankBean implements Bank {
 	
-	@PersistenceContext(name = "BankPU")
+	@PersistenceContext(name = "animePU")
 	private EntityManager em;
 
 	public Account getAccount(String accountDescription, String lastnameOwner) {

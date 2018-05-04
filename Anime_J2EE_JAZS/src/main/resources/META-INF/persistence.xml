@@ -5,8 +5,8 @@
                 http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
 	version="1.0">
 
-	<persistence-unit name="bankPU">
-		<jta-data-source>java:/labsDS</jta-data-source>
+	<persistence-unit name="animePU">
+		<jta-data-source>java:/animeDS</jta-data-source>
 		
 		<class>ch.hevs.businessobject.Client</class>
 		<class>ch.hevs.businessobject.Account</class>
