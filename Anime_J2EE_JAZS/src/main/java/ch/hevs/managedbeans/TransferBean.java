@@ -1,58 +1,57 @@
-//package ch.hevs.managedbeans;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import javax.annotation.PostConstruct;
-//import javax.faces.event.ValueChangeEvent;
-//import javax.naming.InitialContext;
-//import javax.naming.NamingException;
-//
-//import ch.hevs.bankservice.Bank;
-//import ch.hevs.businessobject.Account;
-//import ch.hevs.businessobject.Client;
-//
-///**
-// * TransferBean.java
-// * 
-// */
-//
-//public class TransferBean
-//{
-//    private List<Client> clients;
-//    private List<String> clientNames;
-//    private List<String> sourceAccountDescriptions;
-//    private List<String> destinationAccountDescriptions;
-//    private String sourceAccountDescription;
-//    private String destinationAccountDescription;
-//    private String sourceClientName;
-//    private String destinationClientName;
-//    private String transactionResult;
-//    private int transactionAmount;
-//    private Bank bank;
-//    
-//    @PostConstruct
-//    public void initialize() throws NamingException {
-//    	
-//    	// use JNDI to inject reference to bank EJB
-//    	InitialContext ctx = new InitialContext();
-//		bank = (Bank) ctx.lookup("java:global/TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT/BankBean!ch.hevs.bankservice.Bank");    	
-//			
-//    	// get clients
-//		List<Client> clientList = bank.getClients();
-//		this.clientNames = new ArrayList<String>();
-//		for (Client client : clientList) {
-//			this.clientNames.add(client.getLastname());
-//		}
-//		
-//		// initialize account descriptions
+package ch.hevs.managedbeans;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.event.ValueChangeEvent;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import ch.hevs.animeService.AnimeList;
+import ch.hevs.businessobject.Anime;
+
+/**
+ * TransferBean.java
+ * 
+ */
+
+public class TransferBean
+{
+    private List<Anime> animes;
+    private List<String> animeNames;
+    private List<String> sourceAccountDescriptions;
+    private List<String> destinationAccountDescriptions;
+    private String sourceAccountDescription;
+    private String destinationAccountDescription;
+    private String sourceClientName;
+    private String destinationClientName;
+    private String transactionResult;
+    private int transactionAmount;
+    private AnimeList animeList;
+    
+    @PostConstruct
+    public void initialize() throws NamingException {
+    	
+    	// use JNDI to inject reference to bank EJB
+    	InitialContext ctx = new InitialContext();
+		animeList = (AnimeList) ctx.lookup("java:global/Anime_J2EE_JAZS-0.0.1-SNAPSHOT/AnimeListBean!ch.hevs.animeService.AnimeList");    	
+			
+    	// get animes
+		animes = animeList.getAnimeList();
+		this.animeNames = new ArrayList<String>();
+		for (Anime anime : animes) {
+			this.animeNames.add(anime.getAnimeName());
+		}
+		
+		// initialize account descriptions
 //		this.sourceAccountDescriptions = new ArrayList<String>();
 //		this.destinationAccountDescriptions = new ArrayList<String>();
 //		List<Account> accounts = bank.getAccountListFromClientLastname(clientList.get(0).getLastname());
 //		this.sourceAccountDescriptions.add(accounts.get(0).getDescription());
 //		this.destinationAccountDescriptions.add(accounts.get(0).getDescription());
-//    }
-//    
+    }
+    
 //    // transactionAmount
 //    public int getTransactionAmount () {
 //    	return transactionAmount;
@@ -111,7 +110,7 @@
 //			String destinationAccountDescription) {
 //		this.destinationAccountDescription = destinationAccountDescription;
 //	}
-//
+
 //	public void updateSourceAccounts(ValueChangeEvent event) {
 //    	this.sourceClientName = (String)event.getNewValue();
 //    	
@@ -130,16 +129,16 @@
 //			this.destinationAccountDescriptions.add(account.getDescription());
 //		}
 //    }
-//
-//    public List<Client> getClients() {
-//		return clients;
-//    }
-//    
-//    public List<String> getClientNames() {
-//    	return clientNames;
-//    }
-//    
-//    
+
+    public List<Anime> getAnimes() {
+		return animes;
+    }
+    
+    public List<String> getAnimeNames() {
+    	return animeNames;
+    }
+    
+    
 //    public String performTransfer() {
 //    	
 //    	try {
@@ -162,4 +161,4 @@
 //
 //		return "showTransferResult"; //  the String value returned represents the outcome used by the navigation handler to determine what page to display next.
 //	} 
-//}
+}
