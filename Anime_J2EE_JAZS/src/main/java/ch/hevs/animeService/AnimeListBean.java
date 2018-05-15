@@ -10,7 +10,7 @@ import javax.persistence.Query;
 import ch.hevs.businessobject.Anime;
 
 @Stateless
-public class AnimeBean implements AnimeList {
+public class AnimeListBean implements AnimeList {
 
 	@PersistenceContext(name = "animePU")
 	private EntityManager em;
