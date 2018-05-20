@@ -63,6 +63,13 @@ public class TransferBean
     {
     	this.animes = animes;
     }
+   
+    
+    // populateDB
+    public void populate()
+    {
+    	DatabaseDefaultContent.populate();
+    }
     
 //    // transactionAmount
 //    public int getTransactionAmount () {
