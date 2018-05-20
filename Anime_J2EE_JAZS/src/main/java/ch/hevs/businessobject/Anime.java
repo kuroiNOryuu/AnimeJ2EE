@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,7 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="Anime")
+@Table(name="ANIME")
 public class Anime {
 	
 	@Id
@@ -34,12 +35,16 @@ public class Anime {
 	private int duration;
 	private int numberOfEpisodes;
 
+	// Relations Old version with join table and supp element
+	//@OneToMany(mappedBy="userAnimeId.anime", cascade = CascadeType.ALL)
+	//private Set<UserAnime> userAnimes;
+		
 	// Relations
 	@ManyToOne
 	private Studio studio;
 	
-	@OneToMany(mappedBy="userAnimeId.anime", cascade = CascadeType.ALL)
-	private Set<UserAnime> userAnimes;
+	@ManyToMany(mappedBy="userAnimes")
+	private Set<User> users;
 	
 	// Id Anime
 	public Long getIdAnime() {
@@ -97,18 +102,39 @@ public class Anime {
 		this.numberOfEpisodes = numberOfEpisodes;
 	}
 	
-	// UserAnimes
-	public Set<UserAnime> getUserAnimes() {
-		return userAnimes;
+	// Studio
+	public Studio getStudio() {
+		return studio;
 	}
-
-	public void setUserAnimes(Set<UserAnime> userAnimes) {
-		this.userAnimes = userAnimes;
+	public void setStudio(Studio studio) {
+		this.studio = studio;
+	}	
+	
+	// UserAnimes
+	public Set<User> getUsers() {
+		return users;
+	}
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 	
 	// Constructor
 	public Anime(){
-		this.userAnimes = new HashSet<UserAnime>();
+		this.users = new HashSet<User>();
 	}
+	
+	// UserAnimes  Old version with join table and supp element
+	//public Set<UserAnime> getUserAnimes() {
+	//	return userAnimes;
+	//}
+
+	//public void setUserAnimes(Set<UserAnime> userAnimes) {
+	//	this.userAnimes = userAnimes;
+	//}
+	
+	// Constructor
+	//public Anime(){
+	//	this.userAnimes = new HashSet<UserAnime>();
+	//}
 
 }

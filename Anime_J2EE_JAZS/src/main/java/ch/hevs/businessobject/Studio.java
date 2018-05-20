@@ -38,5 +38,10 @@ public class Studio {
 	public void setStudioName(String studioName) {
 		this.studioName = studioName;
 	}
+	
+	// Constructor
+	public Studio(){
+		
+	}
 
 }

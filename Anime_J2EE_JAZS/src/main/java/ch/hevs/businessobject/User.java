@@ -7,9 +7,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "USER")
 public class User {
 	
 	@Id
@@ -19,9 +22,15 @@ public class User {
 	private String username;
 	
 	// Relations
-	@OneToMany(mappedBy="userAnimeId.user", cascade = CascadeType.ALL)
-	private Set<UserAnime> userAnimes;
+	
+	// Old version with join table and supp element
+	//@OneToMany(mappedBy="userAnimeId.user", cascade = CascadeType.ALL)
+	//private Set<UserAnime> userAnimes;
 
+	// New version without supp element
+	@ManyToMany
+	private Set<Anime> userAnimes;
+	
 	// Email
 	public String getEmail() {
 		return email;
@@ -41,17 +50,31 @@ public class User {
 	}
 	
 	// UserAnimes
-	public Set<UserAnime> getUserAnimes() {
+	public Set<Anime> getUserAnimes() {
 		return userAnimes;
 	}
 
-	public void setUserAnimes(Set<UserAnime> userAnimes) {
+	public void setUserAnimes(Set<Anime> userAnimes) {
 		this.userAnimes = userAnimes;
-	}
+	}	
 	
-	// Constructor
+	// Contructor
 	public User(){
-		this.userAnimes = new HashSet<UserAnime>();
+		this.userAnimes = new HashSet<Anime>();
 	}
+
+	// UserAnimes Old version with join table and supp element
+	// public Set<UserAnime> getUserAnimes() {
+	//	return userAnimes;
+	//}
+
+	//public void setUserAnimes(Set<UserAnime> userAnimes) {
+	//	this.userAnimes = userAnimes;
+	//}
+	
+	// Constructor Old version with join table and supp element
+	//public User(){
+	//	this.userAnimes = new HashSet<UserAnime>();
+	//}
 
 }
