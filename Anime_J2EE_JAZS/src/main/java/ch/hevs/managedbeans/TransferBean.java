@@ -20,20 +20,21 @@ public class TransferBean
 {
     private List<Anime> animes;
     private List<String> animeNames;
-    private List<String> sourceAccountDescriptions;
-    private List<String> destinationAccountDescriptions;
-    private String sourceAccountDescription;
-    private String destinationAccountDescription;
-    private String sourceClientName;
-    private String destinationClientName;
-    private String transactionResult;
-    private int transactionAmount;
     private AnimeList animeList;
+    
+//    private List<String> sourceAccountDescriptions;
+//    private List<String> destinationAccountDescriptions;
+//    private String sourceAccountDescription;
+//    private String destinationAccountDescription;
+//    private String sourceClientName;
+//    private String destinationClientName;
+//    private String transactionResult;
+//    private int transactionAmount;    
     
     @PostConstruct
     public void initialize() throws NamingException {
     	
-    	// use JNDI to inject reference to bank EJB
+    	// use JNDI to inject reference to AnimeList EJB
     	InitialContext ctx = new InitialContext();
 		animeList = (AnimeList) ctx.lookup("java:global/Anime_J2EE_JAZS-0.0.1-SNAPSHOT/AnimeListBean!ch.hevs.animeService.AnimeList");    	
 			
@@ -50,6 +51,17 @@ public class TransferBean
 //		List<Account> accounts = bank.getAccountListFromClientLastname(clientList.get(0).getLastname());
 //		this.sourceAccountDescriptions.add(accounts.get(0).getDescription());
 //		this.destinationAccountDescriptions.add(accounts.get(0).getDescription());
+    }
+    
+    // animes
+    public List<Anime> getAnimeList()
+    {
+    	return animes;
+    }
+    
+    public void setAnimeList(List<Anime> animes)
+    {
+    	this.animes = animes;
     }
     
 //    // transactionAmount

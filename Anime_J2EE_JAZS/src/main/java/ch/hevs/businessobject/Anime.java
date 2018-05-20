@@ -38,8 +38,8 @@ public class Anime {
 	@ManyToOne
 	private Studio studio;
 	
-	@OneToMany(mappedBy="userAnimeId.anime", cascade = CascadeType.ALL)
-	private Set<UserAnime> userAnimes;
+//	@OneToMany(mappedBy="userAnimeId.anime", cascade = CascadeType.ALL)
+//	private Set<UserAnime> userAnimes;
 	
 	// Id Anime
 	public Long getIdAnime() {
@@ -98,17 +98,17 @@ public class Anime {
 	}
 	
 	// UserAnimes
-	public Set<UserAnime> getUserAnimes() {
-		return userAnimes;
-	}
-
-	public void setUserAnimes(Set<UserAnime> userAnimes) {
-		this.userAnimes = userAnimes;
-	}
+//	public Set<UserAnime> getUserAnimes() {
+//		return userAnimes;
+//	}
+//
+//	public void setUserAnimes(Set<UserAnime> userAnimes) {
+//		this.userAnimes = userAnimes;
+//	}
 	
 	// Constructor
 	public Anime(){
-		this.userAnimes = new HashSet<UserAnime>();
+//		this.userAnimes = new HashSet<UserAnime>();
 	}
 
 }

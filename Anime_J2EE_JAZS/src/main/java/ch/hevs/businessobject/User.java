@@ -19,8 +19,8 @@ public class User {
 	private String username;
 	
 	// Relations
-	@OneToMany(mappedBy="userAnimeId.user", cascade = CascadeType.ALL)
-	private Set<UserAnime> userAnimes;
+//	@OneToMany(mappedBy="userAnimeId.user", cascade = CascadeType.ALL)
+//	private Set<UserAnime> userAnimes;
 
 	// Email
 	public String getEmail() {
@@ -41,17 +41,17 @@ public class User {
 	}
 	
 	// UserAnimes
-	public Set<UserAnime> getUserAnimes() {
-		return userAnimes;
-	}
-
-	public void setUserAnimes(Set<UserAnime> userAnimes) {
-		this.userAnimes = userAnimes;
-	}
+//	public Set<UserAnime> getUserAnimes() {
+//		return userAnimes;
+//	}
+//
+//	public void setUserAnimes(Set<UserAnime> userAnimes) {
+//		this.userAnimes = userAnimes;
+//	}
 	
 	// Constructor
 	public User(){
-		this.userAnimes = new HashSet<UserAnime>();
+//		this.userAnimes = new HashSet<UserAnime>();
 	}
 
 }
