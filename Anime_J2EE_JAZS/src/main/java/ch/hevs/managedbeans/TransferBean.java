@@ -9,6 +9,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import ch.hevs.animeService.AnimeList;
+import ch.hevs.animeService.DatabaseDefaultContent;
 import ch.hevs.businessobject.Anime;
 
 /**

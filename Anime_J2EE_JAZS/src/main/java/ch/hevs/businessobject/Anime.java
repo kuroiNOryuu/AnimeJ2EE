@@ -32,7 +32,7 @@ public class Anime {
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
 	private String animeDescription;
-	private int duration;
+	private int episodeDuration;
 	private int numberOfEpisodes;
 
 	// Relations Old version with join table and supp element
@@ -87,12 +87,12 @@ public class Anime {
 		this.animeDescription = animeDescription;
 	}
 	
-	// Duration
-	public int getDuration() {
-		return duration;
+	// Episode Duration
+	public int getEpisodeDuration() {
+		return episodeDuration;
 	}
-	public void setDuration(int duration) {
-		this.duration = duration;
+	public void setEpisodeDuration(int episodeDuration) {
+		this.episodeDuration = episodeDuration;
 	}
 	
 	// Number of Episodes

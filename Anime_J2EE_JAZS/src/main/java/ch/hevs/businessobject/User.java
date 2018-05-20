@@ -63,6 +63,12 @@ public class User {
 		this.userAnimes = new HashSet<Anime>();
 	}
 
+	public User(String email, String userName){
+		this.setEmail(email);
+		this.setUsername(userName);
+		this.userAnimes = new HashSet<Anime>();
+	}
+
 	// UserAnimes Old version with join table and supp element
 	// public Set<UserAnime> getUserAnimes() {
 	//	return userAnimes;

@@ -1,5 +1,6 @@
 package ch.hevs.businessobject;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -41,7 +42,12 @@ public class Studio {
 	
 	// Constructor
 	public Studio(){
-		
+		this.animes = new HashSet<Anime>();
+	}
+	
+	public Studio(String studioName){
+		this.studioName = studioName;
+		this.animes = new HashSet<Anime>();
 	}
 
 }
