@@ -45,6 +45,7 @@ public class Anime {
 	
 	@ManyToMany(mappedBy="userAnimes")
 	private Set<User> users;
+
 	
 	// Id Anime
 	public Long getIdAnime() {

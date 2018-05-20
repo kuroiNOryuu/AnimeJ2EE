@@ -13,8 +13,9 @@
 		<class>ch.hevs.businessobject.Anime</class>
 		<class>ch.hevs.businessobject.Studio</class>
 		<class>ch.hevs.businessobject.User</class>
-		<!-->class>ch.hevs.businessobject.UserAnime</class-->
-		<!-->class>ch.hevs.businessobject.UserAnimeId</class-->
+		<!--class>ch.hevs.businessobject.UserAnime</class-->
+		<!--class>ch.hevs.businessobject.UserAnimeId</class-->
+		
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true" /> 

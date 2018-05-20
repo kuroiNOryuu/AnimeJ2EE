@@ -87,5 +87,4 @@ public class UserAnimeId implements Serializable{
 //        return true;
 //    }
 	
-
 }

@@ -22,7 +22,7 @@ public class User {
 	private String username;
 	
 	// Relations
-	
+
 	// Old version with join table and supp element
 	//@OneToMany(mappedBy="userAnimeId.user", cascade = CascadeType.ALL)
 	//private Set<UserAnime> userAnimes;
