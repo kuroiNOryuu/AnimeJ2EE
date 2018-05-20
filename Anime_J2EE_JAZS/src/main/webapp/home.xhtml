@@ -10,20 +10,18 @@
     <ui:define name="content">
         <h:outputLabel value="My Anime List"></h:outputLabel>
         <br></br>
-                
-         <h:dataTable value="#{transferBean.animes}" var="animes">
-    			<h:column>
-    				<!-- column header -->
-    				<f:facet name="header">Anime Name</f:facet>
-    				<!-- row record -->
-    				#{anime.animeName}
-    			</h:column>
-    			
-    			<h:column>
-    				<f:facet name="header">Description</f:facet>
-    				#{anime.animeDescription}
-    			</h:column>    		
-    		</h:dataTable>
+    		
+   		<h:panelGroup layout="block" value="#{transferBean.animes}" var="animes">
+   			<h:panelGroup >
+   				<h:outputText value="#{anime.animeName}"/><br/>
+   				<h:outputText value="Start date : "/><br/>
+   				<h:outputText value="End date : "/><br/>
+   				<h:outputText value="Duration : "/><br/>
+   				<h:outputText value="Number of episodes : "/><br/>
+   				<h:outputText value="Studio : "/><br/>
+   				<h:outputText value="Description : "/><br/>
+   			</h:panelGroup>
+   		</h:panelGroup>
     </ui:define>
 </ui:composition>
 </html>

@@ -17,7 +17,7 @@ public class AnimeListBean implements AnimeList {
 	
 	@Override
 	public List<Anime> getAnimeList() {
-		return (List<Anime>) em.createQuery("SELECT * FROM Anime").getResultList();
+		return (List<Anime>) em.createQuery("from Anime").getResultList();
 	}
 
 	@Override
