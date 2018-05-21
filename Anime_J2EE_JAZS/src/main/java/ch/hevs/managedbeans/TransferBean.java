@@ -22,7 +22,7 @@ public class TransferBean
     private List<Anime> animes;
     private List<String> animeNames;
     private AnimeList animeList;   
-    private String message = "ras";
+    private String message = "ràs";
     
     @PostConstruct
     public void initialize() throws NamingException {
@@ -76,28 +76,4 @@ public class TransferBean
     public List<String> getAnimeNames() {
     	return animeNames;
     }
-    
-    
-//    public String performTransfer() {
-//    	
-//    	try {
-//			if (sourceClientName.equals(destinationClientName) && sourceAccountDescription.equals(destinationAccountDescription)) {
-//				
-//				this.transactionResult="Error: accounts are identical!";
-//			} 
-//			else {
-//				
-//				Account compteSrc = bank.getAccount(sourceAccountDescription, sourceClientName);
-//				Account compteDest = bank.getAccount(destinationAccountDescription, destinationClientName);
-//	
-//				// Transfer
-//				bank.transfer(compteSrc, compteDest, transactionAmount);
-//				this.transactionResult="Success!";
-//			}
-//    	} catch (Exception e) {
-//    		e.printStackTrace();
-//    	}
-//
-//		return "showTransferResult"; //  the String value returned represents the outcome used by the navigation handler to determine what page to display next.
-//	} 
 }
