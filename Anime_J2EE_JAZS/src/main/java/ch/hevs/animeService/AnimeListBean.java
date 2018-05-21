@@ -21,7 +21,7 @@ public class AnimeListBean implements AnimeList {
 	}
 
 	@Override
-	public Anime getAnimeById(String id) {
+	public Anime getAnimeById(long id) {
 		Query query = em.createQuery("FROM Anime a WHERE a.id=:id");
 		query.setParameter("id", id);
 		

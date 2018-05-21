@@ -10,7 +10,7 @@ import ch.hevs.businessobject.Anime;
 public interface AnimeList {
 
 	List<Anime> getAnimeList();	
-	Anime getAnimeById(String id);
+	Anime getAnimeById(long id);
 	void addAnimeToFavorites(String id);
 	void removeAnimeFromFavorites(String id);
 }

@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.event.ValueChangeEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.persistence.Query;
 
 import ch.hevs.animeService.AnimeList;
 import ch.hevs.animeService.DatabaseDefaultContent;
@@ -21,6 +22,7 @@ public class TransferBean
 {
     private List<Anime> animes;
     private List<String> animeNames;
+    private Anime anime;
     private AnimeList animeList;   
     private String message = "ràs";
     
@@ -50,6 +52,17 @@ public class TransferBean
     	this.animes = animes;
     }
     
+    // anime
+    public Anime getAnime()
+    {
+    	return anime;
+    }
+    
+    public void setAnime(Anime anime)
+    {
+    	this.anime = anime;
+    }
+    
     // message
     public String getMessage()
     {
@@ -61,6 +74,16 @@ public class TransferBean
     	this.message = message;
     }   
     
+    // animes
+    public List<Anime> getAnimes() {
+		return animes;
+    }
+    
+    // anime names
+    public List<String> getAnimeNames() {
+    	return animeNames;
+    }
+    
     // populateDB
     public String populate()
     {
@@ -68,12 +91,15 @@ public class TransferBean
     	setMessage("DB populated");
     	return "home";
     }
-
-    public List<Anime> getAnimes() {
-		return animes;
+    
+    // go to details page
+    public String details(long id)
+    {
+    	anime = getAnimeById(id);
+    	return "details";
     }
     
-    public List<String> getAnimeNames() {
-    	return animeNames;
-    }
+    public Anime getAnimeById(long id) {
+		return animeList.getAnimeById(id);
+	}
 }

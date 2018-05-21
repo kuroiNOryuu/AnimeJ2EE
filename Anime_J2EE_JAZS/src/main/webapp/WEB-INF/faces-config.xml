@@ -13,5 +13,4 @@
 		<display-name>home.xhtml</display-name>
 		<from-view-id>/home.xhtml</from-view-id>
 	</navigation-rule>
-
 </faces-config>
