@@ -8,20 +8,19 @@
 
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
-        <h:outputLabel value="My Anime List"></h:outputLabel><br/>
-        <h:commandButton value="Populate DB" action="#{transferBean.populate}"></h:commandButton><br/>
+        <h:button value="Populate DB" action="#{transferBean.populate}"></h:button><br/>
         <h:outputText value="#{transferBean.message}"/><br/>
         <br/>
     		
    		<h:panelGroup layout="block" value="#{transferBean.animes}" var="animes">
    			<h:panelGroup >
-   				<h:outputText value="#{anime.animeName}"/><br/>
-   				<h:outputText value="Start date : "/><br/>
-   				<h:outputText value="End date : "/><br/>
-   				<h:outputText value="Duration : "/><br/>
-   				<h:outputText value="Number of episodes : "/><br/>
-   				<h:outputText value="Studio : "/><br/>
-   				<h:outputText value="Description : "/><br/>
+   				<h:outputText value="#{animes.animeName}"/><br/>
+   				<h:outputText value="Start date : "/><h:outputText value="#{animes.startDate}"/><br/>
+   				<h:outputText value="End date : "/><h:outputText value="#{animes.endDate}"/><br/>
+   				<h:outputText value="Duration : "/><h:outputText value="#{animes.episodeDuration}"/><br/>
+   				<h:outputText value="Number of episodes : "/><h:outputText value="#{animes.numberOfEpisodes}"/><br/>
+   				<h:outputText value="Studio : "/><h:outputText value="#{animes.studio.studioName}"/><br/>
+   				<h:outputText value="Description : "/><h:outputText value="#{animes.animeDescription}"/><br/>
    			</h:panelGroup>
    		</h:panelGroup>
     </ui:define>
