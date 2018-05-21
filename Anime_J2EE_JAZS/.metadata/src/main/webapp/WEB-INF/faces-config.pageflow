@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14141592409490" configfile="/Anime_J2EE_JAZS/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="home.xhtml" x="184" y="266" id="pf15269090942438" outlinks="pf15269090942439 pf152690920034811" inlinks="pf152690920034811" path="/home.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="details.xhtml" x="408" y="266" id="pf152690909424310" inlinks="pf15269090942439" path="/details.xhtml"/>
-  <links id="pf15269090942439" target="pf152690909424310" source="pf15269090942438" fromaction="#{transferBean.details(anime.idAnime)}"/>
-  <links id="pf152690920034811" target="pf15269090942438" source="pf15269090942438" outcome="#{transferBean.populate}">
+  <nodes xsi:type="pageflow:PFPage" name="home.xhtml" x="261" y="245" id="pf152693870768512" outlinks="pf152693870768513" inlinks="pf152693870768513" path="/home.xhtml"/>
+  <links id="pf152693870768513" target="pf152693870768512" source="pf152693870768512" outcome="#{transferBean.populate()}">
     <bendPoints d1Height="-36" d2Height="-36"/>
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
     <bendPoints d1Width="-64" d2Width="-64"/>
