@@ -7,9 +7,6 @@
 
 	<persistence-unit name="animePU">
 		<jta-data-source>java:/animeDS</jta-data-source>
-		
-		<class>ch.hevs.businessobject.Client</class>
-		<class>ch.hevs.businessobject.Account</class>
 		<class>ch.hevs.businessobject.Anime</class>
 		<class>ch.hevs.businessobject.Studio</class>
 		<class>ch.hevs.businessobject.User</class>
