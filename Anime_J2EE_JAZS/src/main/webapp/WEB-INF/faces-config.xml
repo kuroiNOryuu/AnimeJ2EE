@@ -17,4 +17,20 @@
 			<to-view-id>/home.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>home.xhtml</display-name>
+		<from-view-id>/home.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>#{animeAppBean.addAnime}</from-outcome>
+			<to-view-id>/addForm.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>home.xhtml</display-name>
+		<from-view-id>/home.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>#{animeAppBean.details}</from-outcome>
+			<to-view-id>/details.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

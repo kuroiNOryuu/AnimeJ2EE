@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ch.hevs.businessobject.Anime;
+import ch.hevs.businessobject.Studio;
 
 @Stateless
 public class AnimeListBean implements AnimeList {
@@ -17,7 +18,7 @@ public class AnimeListBean implements AnimeList {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Anime> getAnimeList() {
+	public List<Anime> getAnimes() {
 		return (List<Anime>) em.createQuery("from Anime").getResultList();
 	}
 
@@ -27,6 +28,12 @@ public class AnimeListBean implements AnimeList {
 		query.setParameter("id", id);
 		
 		return (Anime) query.getSingleResult();
+	}
+	
+	@Override
+	public List<Studio> getStudios() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
