@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.event.ValueChangeEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -26,15 +27,16 @@ public class AnimeAppBean
     private List<Anime> animes;
     private Anime anime;
     private AnimeList animeList;   
-    private String message = "ràs";
+    private String message = null;
     
     private DummyContentGenerator content;
     private List<DummyAnime> dummyAnimes;
+    private DummyAnime dummyAnime;
     
     @PostConstruct
     public void initialize() throws NamingException {
     	
-    	// use JNDI to inject reference to AnimeList EJB
+    	// JNDI to inject reference to AnimeList EJB
     	InitialContext ctx = new InitialContext();
 		animeList = (AnimeList) ctx.lookup("java:global/Anime_J2EE_JAZS-0.0.1-SNAPSHOT/AnimeListBean!ch.hevs.animeService.AnimeList");    	
 			
@@ -104,9 +106,19 @@ public class AnimeAppBean
     }
     
     // go to details page
-    public String details(long id)
+    //this managed property will read value from request parameter pageId
+    @ManagedProperty(value = "#{param.animeId}")
+    //private long animeId;
+    private int animeId;
+    
+    public String details()
     {
-    	anime = getAnimeById(id);
+    	// from DB -> <h:panelGroup layout="block" value="#{animeAppBean.anime}" var="anime"> in details.xhtml
+    	//anime = getAnimeById(animeId);
+    	
+    	// from dummy content -> <h:panelGroup layout="block" value="#{animeAppBean.dummyAnime}" var="anime"> in details.xhtml
+    	dummyAnime = content.getDummyAnimes().get(animeId);
+    	
     	return "details";
     }
     

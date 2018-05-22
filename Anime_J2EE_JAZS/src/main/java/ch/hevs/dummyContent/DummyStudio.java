@@ -2,20 +2,20 @@ package ch.hevs.dummyContent;
 
 public class DummyStudio {
 
-	private Long idStudio;	
+	private int idStudio;	
 	private String studioName;
 	
-	public DummyStudio(Long idStudio, String studioName) {
+	public DummyStudio(int idStudio, String studioName) {
 
 		this.idStudio = idStudio;
 		this.studioName = studioName;
 	}
 
-	public Long getIdStudio() {
+	public int getIdStudio() {
 		return idStudio;
 	}
 
-	public void setIdStudio(Long idStudio) {
+	public void setIdStudio(int idStudio) {
 		this.idStudio = idStudio;
 	}
 

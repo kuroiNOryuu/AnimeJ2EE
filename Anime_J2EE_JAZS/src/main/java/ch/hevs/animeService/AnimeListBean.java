@@ -15,6 +15,7 @@ public class AnimeListBean implements AnimeList {
 	@PersistenceContext(name = "animePU")
 	private EntityManager em;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Anime> getAnimeList() {
 		return (List<Anime>) em.createQuery("from Anime").getResultList();

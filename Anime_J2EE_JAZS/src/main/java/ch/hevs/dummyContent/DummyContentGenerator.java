@@ -18,8 +18,8 @@ public class DummyContentGenerator {
 	public DummyContentGenerator() throws ParseException
 	{
 		// Create Studios
-	    DummyStudio studio1 = new DummyStudio(000001L,"Arms");
-	    DummyStudio studio2 = new DummyStudio(000002L,"Madhouse");
+	    DummyStudio studio1 = new DummyStudio(1,"Arms");
+	    DummyStudio studio2 = new DummyStudio(2,"Madhouse");
 	    
 	    dummyStudios.add(studio1);
 	    dummyStudios.add(studio2);
@@ -28,15 +28,15 @@ public class DummyContentGenerator {
 	    
 	    startDate = new SimpleDateFormat( "yyyy-MM-dd" ).parse( "2004-07-25" );
 	    endDate = new SimpleDateFormat( "yyyy-MM-dd" ).parse( "2004-10-17" );
-	    DummyAnime anime1 = new DummyAnime(000005L, "Elfen Lied", startDate, endDate,"from dummy content", 25, 13, studio1);
+	    DummyAnime anime1 = new DummyAnime(1, "Elfen Lied", startDate, endDate,"from dummy content", 25, 13, studio1);
 	    
 	    startDate = new SimpleDateFormat( "yyyy-MM-dd" ).parse( "2006-10-4" );
 	    endDate = new SimpleDateFormat( "yyyy-MM-dd" ).parse( "2007-06-27" );
-	    DummyAnime anime2 = new DummyAnime(000006L,"Death Note", startDate,	endDate, "from dummy content", 23, 37, studio2);
+	    DummyAnime anime2 = new DummyAnime(2,"Death Note", startDate,	endDate, "from dummy content", 23, 37, studio2);
 	    
 	    startDate = new SimpleDateFormat( "yyyy-MM-dd" ).parse( "2014-04-09" );
 	    endDate = new SimpleDateFormat( "yyyy-MM-dd" ).parse( "2014-06-25" );
-	    DummyAnime anime3 = new DummyAnime(000007L, "No Game, No Life", startDate, endDate, "from dummy content", 23, 12, studio2);
+	    DummyAnime anime3 = new DummyAnime(3, "No Game, No Life", startDate, endDate, "from dummy content", 23, 12, studio2);
 	    
 	    dummyAnimes.add(anime1);
 	    dummyAnimes.add(anime2);

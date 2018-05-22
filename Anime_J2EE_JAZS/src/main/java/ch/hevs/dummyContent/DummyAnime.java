@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class DummyAnime {
 
-	private Long idAnime;	
+	private int idAnime;	
 	private String animeName;
 	private Date startDate;
 	private Date endDate;
@@ -18,7 +18,7 @@ public class DummyAnime {
 		
 	}
 	
-	public DummyAnime(Long idAnime, String animeName, Date startDate, Date endDate, String animeDescription,
+	public DummyAnime(int idAnime, String animeName, Date startDate, Date endDate, String animeDescription,
 			int episodeDuration, int numberOfEpisodes, DummyStudio studio) 
 	{
 		this.idAnime = idAnime;
@@ -31,11 +31,11 @@ public class DummyAnime {
 		this.studio = studio;
 	}
 
-	public Long getIdAnime() {
+	public int getIdAnime() {
 		return idAnime;
 	}
 
-	public void setIdAnime(Long idAnime) {
+	public void setIdAnime(int idAnime) {
 		this.idAnime = idAnime;
 	}
 

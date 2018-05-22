@@ -11,19 +11,17 @@
     <h:form>
 	        <h:commandButton value="Populate DB" action="#{animeAppBean.populate}"></h:commandButton><br/>
 	        <h:outputText value="#{animeAppBean.message}"/><br/>
-    
-	        <br/>
-    		
+	        <h:commandButton value="New" action="#{animeAppBean.populate}"></h:commandButton><br/>    		
 	   		<ui:repeat value="#{animeAppBean.dummyAnimes}" var="anime">
 	   			<h:panelGroup layout = "block">
-	   				<h:outputText value="#{anime.animeName}"/><br/>
+	   				<h:commandLink value="#{anime.animeName}" action = "#{animeAppBean.details}">
+	   					<f:param name = "animeId" value = "anime.idAnime" />
+	   				</h:commandLink><br/>
 	   				<h:outputText value="Start date : "/><h:outputText value="#{anime.startDate}"/><br/>
 	   				<h:outputText value="End date : "/><h:outputText value="#{anime.endDate}"/><br/>
-	   				<h:outputText value="Duration : "/><h:outputText value="#{anime.episodeDuration}"/><br/>
+	   				<h:outputText value="Episode duration : "/><h:outputText value="#{anime.episodeDuration} min"/><br/>
 	   				<h:outputText value="Number of episodes : "/><h:outputText value="#{anime.numberOfEpisodes}"/><br/>
 	   				<h:outputText value="Studio : "/><h:outputText value="#{anime.studio.studioName}"/><br/>
-	   				<h:outputText value="Description : "/><h:outputText value="#{anime.animeDescription}"/><br/>
-	   				<h:link value = "Details" outcome="details" /><br/>
 	   			</h:panelGroup>
 	   		</ui:repeat>
    		</h:form>
