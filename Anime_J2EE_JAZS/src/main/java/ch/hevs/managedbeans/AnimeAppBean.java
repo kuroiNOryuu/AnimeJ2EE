@@ -18,7 +18,7 @@ import ch.hevs.businessobject.Anime;
  * 
  */
 
-public class TransferBean
+public class AnimeAppBean
 {
     private List<Anime> animes;
     private List<String> animeNames;

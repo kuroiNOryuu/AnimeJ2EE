@@ -8,11 +8,13 @@
 
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
-        <h:commandButton value="Populate DB" action="#{transferBean.populate()}"></h:commandButton><br/>
-        <h:outputText value="#{transferBean.message}"/><br/>
+    <h:form>
+        <h:commandButton value="Populate DB" action="#{animeAppBean.populate}"></h:commandButton><br/>
+        <h:outputText value="#{animeAppBean.message}"/><br/>
+    </h:form>
         <br/>
     		
-   		<h:panelGroup layout="block" value="#{transferBean.animes}" var="animes">
+   		<h:panelGroup layout="block" value="#{animeAppBean.animes}" var="animes">
    			<h:panelGroup >
    				<h:outputText value="#{animes.animeName}"/><br/>
    				<h:outputText value="Start date : "/><h:outputText value="#{animes.startDate}"/><br/>

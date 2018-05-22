@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+    <ui:define name="content">
+        <h:panelGroup layout="block" value="#{animeAppBean.anime}" var="anime">
+   			<h:panelGroup >
+   				<h:outputText value="#{anime.animeName}"/><br/>
+   				<h:outputText value="Start date : "/><h:outputText value="#{anime.startDate}"/><br/>
+   				<h:outputText value="End date : "/><h:outputText value="#{anime.endDate}"/><br/>
+   				<h:outputText value="Duration : "/><h:outputText value="#{anime.episodeDuration}"/><br/>
+   				<h:outputText value="Number of episodes : "/><h:outputText value="#{anime.numberOfEpisodes}"/><br/>
+   				<h:outputText value="Studio : "/><h:outputText value="#{anime.studio.studioName}"/><br/>
+   				<h:outputText value="Description : "/><h:outputText value="#{anime.animeDescription}"/><br/>
+   			</h:panelGroup>
+   		</h:panelGroup>
+    </ui:define>
+</ui:composition>
+</html>

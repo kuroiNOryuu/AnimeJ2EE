@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14141592409490" configfile="/Anime_J2EE_JAZS/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="home.xhtml" x="261" y="245" id="pf152693870768512" outlinks="pf152693870768513" inlinks="pf152693870768513" path="/home.xhtml"/>
-  <links id="pf152693870768513" target="pf152693870768512" source="pf152693870768512" outcome="#{transferBean.populate()}">
+  <nodes xsi:type="pageflow:PFPage" name="home.xhtml" x="261" y="245" id="pf152693870768512" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" outlinks="pf152693870768513" inlinks="pf152693870768513" path="/home.xhtml"/>
+  <links id="pf152693870768513" target="pf152693870768512" source="pf152693870768512" outcome="#{animeAppBean.populate()}">
     <bendPoints d1Height="-36" d2Height="-36"/>
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
     <bendPoints d1Width="-64" d2Width="-64"/>

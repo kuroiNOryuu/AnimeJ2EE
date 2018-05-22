@@ -5,15 +5,15 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
     version="2.2">
 	<managed-bean>
-		<managed-bean-name>transferBean</managed-bean-name>
-		<managed-bean-class>ch.hevs.managedbeans.TransferBean</managed-bean-class>
+		<managed-bean-name>animeAppBean</managed-bean-name>
+		<managed-bean-class>ch.hevs.managedbeans.AnimeAppBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<navigation-rule>
 		<display-name>home.xhtml</display-name>
 		<from-view-id>/home.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>#{transferBean.populate()}</from-outcome>
+			<from-outcome>#{animeAppBean.populate()}</from-outcome>
 			<to-view-id>/home.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
