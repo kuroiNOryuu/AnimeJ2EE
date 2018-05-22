@@ -9,23 +9,24 @@
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
     <h:form>
-        <h:commandButton value="Populate DB" action="#{animeAppBean.populate}"></h:commandButton><br/>
-        <h:outputText value="#{animeAppBean.message}"/><br/>
-    </h:form>
-        <br/>
+	        <h:commandButton value="Populate DB" action="#{animeAppBean.populate}"></h:commandButton><br/>
+	        <h:outputText value="#{animeAppBean.message}"/><br/>
+    
+	        <br/>
     		
-   		<h:panelGroup layout="block" value="#{animeAppBean.animes}" var="animes">
-   			<h:panelGroup >
-   				<h:outputText value="#{animes.animeName}"/><br/>
-   				<h:outputText value="Start date : "/><h:outputText value="#{animes.startDate}"/><br/>
-   				<h:outputText value="End date : "/><h:outputText value="#{animes.endDate}"/><br/>
-   				<h:outputText value="Duration : "/><h:outputText value="#{animes.episodeDuration}"/><br/>
-   				<h:outputText value="Number of episodes : "/><h:outputText value="#{animes.numberOfEpisodes}"/><br/>
-   				<h:outputText value="Studio : "/><h:outputText value="#{animes.studio.studioName}"/><br/>
-   				<h:outputText value="Description : "/><h:outputText value="#{animes.animeDescription}"/><br/>
-   				<h:link value = "Details" outcome="details" />
-   			</h:panelGroup>
-   		</h:panelGroup>
+	   		<ui:repeat value="#{animeAppBean.dummyAnimes}" var="anime">
+	   			<h:panelGroup layout = "block">
+	   				<h:outputText value="#{anime.animeName}"/><br/>
+	   				<h:outputText value="Start date : "/><h:outputText value="#{anime.startDate}"/><br/>
+	   				<h:outputText value="End date : "/><h:outputText value="#{anime.endDate}"/><br/>
+	   				<h:outputText value="Duration : "/><h:outputText value="#{anime.episodeDuration}"/><br/>
+	   				<h:outputText value="Number of episodes : "/><h:outputText value="#{anime.numberOfEpisodes}"/><br/>
+	   				<h:outputText value="Studio : "/><h:outputText value="#{anime.studio.studioName}"/><br/>
+	   				<h:outputText value="Description : "/><h:outputText value="#{anime.animeDescription}"/><br/>
+	   				<h:link value = "Details" outcome="details" /><br/>
+	   			</h:panelGroup>
+	   		</ui:repeat>
+   		</h:form>
     </ui:define>
 </ui:composition>
 </html>

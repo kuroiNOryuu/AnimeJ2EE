@@ -1,5 +1,6 @@
 package ch.hevs.managedbeans;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import javax.persistence.Query;
 import ch.hevs.animeService.AnimeList;
 import ch.hevs.animeService.DatabaseDefaultContent;
 import ch.hevs.businessobject.Anime;
+import ch.hevs.dummyContent.DummyAnime;
+import ch.hevs.dummyContent.DummyContentGenerator;
 
 /**
  * TransferBean.java
@@ -21,10 +24,12 @@ import ch.hevs.businessobject.Anime;
 public class AnimeAppBean
 {
     private List<Anime> animes;
-    private List<String> animeNames;
     private Anime anime;
     private AnimeList animeList;   
     private String message = "ràs";
+    
+    private DummyContentGenerator content;
+    private List<DummyAnime> dummyAnimes;
     
     @PostConstruct
     public void initialize() throws NamingException {
@@ -33,23 +38,39 @@ public class AnimeAppBean
     	InitialContext ctx = new InitialContext();
 		animeList = (AnimeList) ctx.lookup("java:global/Anime_J2EE_JAZS-0.0.1-SNAPSHOT/AnimeListBean!ch.hevs.animeService.AnimeList");    	
 			
-    	// get animes
-		animes = animeList.getAnimeList();
-		this.animeNames = new ArrayList<String>();
-		for (Anime anime : animes) {
-			this.animeNames.add(anime.getAnimeName());
-		}
+    	// get animes : depuis la bdd -> <ui:repeat value="#{animeAppBean.animes}" var="anime"> dans home.xhtml
+		//animes = animeList.getAnimeList();
+		
+		// get dummy animes : depuis DummyContentGen. -> <ui:repeat value="#{animeAppBean.dummyAnimes}" var="anime"> dans home.xhtml
+		try {
+			content = new DummyContentGenerator();
+			dummyAnimes = content.getDummyAnimes();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
     }
     
     // animes
-    public List<Anime> getAnimeList()
+    public List<Anime> getAnimes()
     {
     	return animes;
     }
     
-    public void setAnimeList(List<Anime> animes)
+    public void setAnimes(List<Anime> animes)
     {
     	this.animes = animes;
+    }
+    
+    // dummy animes
+    public List<DummyAnime> getDummyAnimes()
+    {
+    	return dummyAnimes;
+    }
+    
+    public void setDummyAnimes(List<DummyAnime> dummyAnimes)
+    {
+    	this.dummyAnimes = dummyAnimes;
     }
     
     // anime
@@ -73,16 +94,6 @@ public class AnimeAppBean
     {
     	this.message = message;
     }   
-    
-    // animes
-    public List<Anime> getAnimes() {
-		return animes;
-    }
-    
-    // anime names
-    public List<String> getAnimeNames() {
-    	return animeNames;
-    }
     
     // populateDB
     public String populate()
