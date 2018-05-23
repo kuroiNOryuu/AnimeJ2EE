@@ -2,29 +2,38 @@ package ch.hevs.animeService;
 
 import java.text.SimpleDateFormat;
 
+import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 import ch.hevs.businessobject.Anime;
 import ch.hevs.businessobject.Studio;
 import ch.hevs.businessobject.User;
 
+@Stateful
 public class DatabaseDefaultContent {
-		
+	
+	// Manager that handle connection with DB
+	@PersistenceContext(name = "animePU", type=PersistenceContextType.EXTENDED)
+	static EntityManager em;
+	
 	public static void populate() {
 		EntityTransaction tx = null;
 		try {
 
-			EntityManagerFactory emf = Persistence.createEntityManagerFactory("animePU");
-			EntityManager em = emf.createEntityManager();
+			//EntityManagerFactory emf = Persistence.createEntityManagerFactory("animePU");
+			//EntityManager em = emf.createEntityManager();
+			
 			tx = em.getTransaction();
 			tx.begin();
 			
 			// Create Users
 			User user1 = new User("john@doe.net", "johndoe");
-			User user2 = new User("jane@doe.net", "janedoe");
+			User user2 = new User("jane@doe.net", "janedoe");			
 			
 			// Create Studios
 	        Studio studio1 = new Studio("Arms");

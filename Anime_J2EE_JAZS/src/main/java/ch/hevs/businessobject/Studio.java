@@ -3,6 +3,8 @@ package ch.hevs.businessobject;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,13 +15,15 @@ import javax.persistence.OneToMany;
 public class Studio {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "STUDIO_ID", unique = true, nullable = false)
 	private Long idStudio;
 	
+	@Column(unique = true, nullable = false)
 	private String studioName;
 	
 	// Relations
-	@OneToMany(mappedBy="studio")
+	@OneToMany(mappedBy="studio", cascade = CascadeType.ALL)
 	private Set<Anime> animes;
 	
 	// IdStudio
