@@ -28,6 +28,8 @@ public class AnimeListBean implements AnimeList {
 	private static final String JPQL_SELECT_ALL_ANIMES = "SELECT a FROM Anime a";
 	private static final String JPQL_SELECT_BY_IDSTUDIO = "SELECT s FROM Studio s WHERE s.idStudio=:idStudio";
 	private static final String PARAM_IDSTUDIO = "idStudio";
+	private static final String JPQL_SELECT_BY_STUDIONAME = "SELECT s FROM Studio s WHERE s.StudioName=:studioName";
+	private static final String PARAM_STUDIONAME = "studioName";
 	private static final String JPQL_SELECT_ALL_STUDIOS = "SELECT s FROM Studio s";
 	
 	
@@ -139,6 +141,23 @@ public class AnimeListBean implements AnimeList {
         }
 		return result;
 
+	}
+	
+	// Get Studio by its NAME
+	public Studio getStudioByName(String studioName) throws AnimeException {
+		Studio result = new Studio();
+		
+        Query query = em.createQuery( JPQL_SELECT_BY_STUDIONAME );
+        query.setParameter( PARAM_STUDIONAME, studioName );
+
+        try {
+            result = (Studio) query.getSingleResult();
+        } catch ( NoResultException e ) {
+            return null;
+        } catch ( Exception e ) {
+            throw new AnimeException( e );
+        }
+		return result;
 	}
 
 	// Get All Studios

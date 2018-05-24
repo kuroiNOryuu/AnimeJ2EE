@@ -21,6 +21,7 @@ public interface AnimeList {
 	// STUDIOS
 	void saveStudio(Studio s);
 	Studio getStudioById(long idStudio);
+	Studio getStudioByName(String studioName);
 	List<Studio> getStudios();
 	void updateStudio(Studio s);
 	void deleteStudio(Studio s);
