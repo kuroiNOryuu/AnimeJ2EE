@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 public class Studio {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "STUDIO_ID", unique = true, nullable = false)
 	private Long idStudio;
 	

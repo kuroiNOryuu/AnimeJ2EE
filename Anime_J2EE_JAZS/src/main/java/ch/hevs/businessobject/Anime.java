@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
 public class Anime {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ANIME_ID", unique = true, nullable = false)
 	private Long idAnime;
 	

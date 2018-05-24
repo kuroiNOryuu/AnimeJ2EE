@@ -1,18 +1,13 @@
 package ch.hevs.managedbeans;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.event.ValueChangeEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.persistence.Query;
-
 import ch.hevs.animeService.AnimeList;
-import ch.hevs.animeService.DatabaseDefaultContent;
 import ch.hevs.businessobject.Anime;
 import ch.hevs.businessobject.Studio;
 import ch.hevs.dummyContent.DummyAnime;
@@ -32,8 +27,9 @@ public class AnimeAppBean
     private Anime anime;  
     private Studio studio;
     private String message = null;
-    
-    // temp
+    private boolean renderPopulateButton;
+
+	// temp
     private DummyContentGenerator content;
     private List<DummyAnime> dummyAnimes;
     private List<DummyStudio> dummyStudios;
@@ -56,7 +52,10 @@ public class AnimeAppBean
 			// get dummy animes : depuis DummyContentGen. -> <ui:repeat value="#{animeAppBean.dummyAnimes}" var="anime"> dans home.xhtml
 			dummyAnimes = content.getDummyAnimes();
 			// get dummy studios : depuis DummyContentGen. -> <ui:repeat value="#{animeAppBean.dummyAnimes}" var="anime"> dans home.xhtml
-			dummyStudios = content.getDummyStudios();
+			dummyStudios = content.getDummyStudios();	
+			
+			 //disable populateDb button if DB not empty
+			setRenderPopulateButton(isDbNotPopulated());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -132,10 +131,30 @@ public class AnimeAppBean
     // populateDB
     public String populate()
     {
-    	DatabaseDefaultContent.populate();
+    	animeList.populate();
     	setMessage("DB populated");
+    	setRenderPopulateButton(false); //disable populateDb button after click
     	return "home";
     }
+    
+    // Check if DB populated. Populated = don't render populate db button
+    public boolean isDbNotPopulated(){
+		
+		List<Anime> testAnime = animeList.getAnimes();
+		if(testAnime.size() > 0)
+			return false;
+    	
+    	return true;
+    }
+    
+    // RenderPopulateButton
+    public boolean isRenderPopulateButton() {
+		return renderPopulateButton;
+	}
+
+	public void setRenderPopulateButton(boolean renderPopulateButton) {
+		this.renderPopulateButton = renderPopulateButton;
+	}
     
     // go to details page
     //this managed property will read value from request parameter pageId
@@ -168,4 +187,5 @@ public class AnimeAppBean
     	// Save data to DB
     	return "home";
     }
+
 }
