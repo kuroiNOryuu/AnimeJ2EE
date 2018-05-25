@@ -1,18 +1,16 @@
 package ch.hevs.managedbeans;
 
-import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import ch.hevs.animeService.AnimeList;
 import ch.hevs.businessobject.Anime;
 import ch.hevs.businessobject.Studio;
-import ch.hevs.dummyContent.DummyAnime;
-import ch.hevs.dummyContent.DummyContentGenerator;
-import ch.hevs.dummyContent.DummyStudio;
 
 /**
  * TransferBean.java
@@ -24,15 +22,11 @@ public class AnimeAppBean
 	private AnimeList animeList;
 	private List<Anime> animes;
 	private List<Studio> studios;
+	private List<String> studioNames;
 	private Anime anime;  
 	private Studio studio;
+	private String studioName;
 	private boolean renderPopulateButton;
-
-	// temp
-	private DummyContentGenerator content;
-	private List<DummyAnime> dummyAnimes;
-	private List<DummyStudio> dummyStudios;
-	private DummyAnime dummyAnime;
 
 	@PostConstruct
 	public void initialize() throws NamingException {
@@ -41,25 +35,10 @@ public class AnimeAppBean
 		InitialContext ctx = new InitialContext();
 		animeList = (AnimeList) ctx.lookup("java:global/Anime_J2EE_JAZS-0.0.1-SNAPSHOT/AnimeListBean!ch.hevs.animeService.AnimeList");    
 
-		// get animes : depuis la bdd -> <ui:repeat value="#{animeAppBean.animes}" var="anime"> dans home.xhtml
-		animes = animeList.getAnimes();
-		studios = animeList.getStudios();
+		getContent();
+
 		//disable populateDb button if DB not empty
 		setRenderPopulateButton(isDbNotPopulated());
-
-		//    			try {
-		//    				content = new DummyContentGenerator();
-		//    				// get dummy animes : depuis DummyContentGen. -> <ui:repeat value="#{animeAppBean.dummyAnimes}" var="anime"> dans home.xhtml
-		//    				dummyAnimes = content.getDummyAnimes();
-		//    				// get dummy studios : depuis DummyContentGen. -> <ui:repeat value="#{animeAppBean.dummyAnimes}" var="anime"> dans home.xhtml
-		//    				dummyStudios = content.getDummyStudios();	
-		//    				
-		//    				 //disable populateDb button if DB not empty
-		//    				setRenderPopulateButton(isDbNotPopulated());
-		//    			} catch (ParseException e) {
-		//    				// TODO Auto-generated catch block
-		//    				e.printStackTrace();
-		//    			}	
 	}
 
 	// animes
@@ -84,26 +63,15 @@ public class AnimeAppBean
 		this.studios = studios;
 	}
 
-	// dummy animes
-	public List<DummyAnime> getDummyAnimes()
+	// studioNames
+	public List<String> getStudioNames()
 	{
-		return dummyAnimes;
+		return studioNames;
 	}
 
-	public void setDummyAnimes(List<DummyAnime> dummyAnimes)
+	public void setStudioNames(List<String> studioNames)
 	{
-		this.dummyAnimes = dummyAnimes;
-	}
-
-	// dummy animes
-	public List<DummyStudio> getDummyStudios()
-	{
-		return dummyStudios;
-	}
-
-	public void setDummyStudios(List<DummyStudio> dummyStudios)
-	{
-		this.dummyStudios = dummyStudios;
+		this.studioNames = studioNames;
 	}
 
 	// anime
@@ -126,32 +94,40 @@ public class AnimeAppBean
 	public void setStudio(Studio studio)
 	{
 		this.studio = studio;
-	} 
+	}
+
+	// studioName
+	public String getStudioName()
+	{
+		return studioName;
+	}
+
+	public void setStudioName(String studioName)
+	{
+		this.studioName = studioName;
+	}
 
 	// populateDB
 	public String populate()
 	{
 		animeList.populate();
 		setRenderPopulateButton(false); //disable populateDb button after click
+		getContent();
 
-		// get animes : depuis la bdd -> <ui:repeat value="#{animeAppBean.animes}" var="anime"> dans home.xhtml
+		return "home";
+	}
+
+	// Get necessary content for homepage display (full anime list)
+	public void getContent()
+	{
 		animes = animeList.getAnimes();
 		studios = animeList.getStudios();
-
-		//    			try {
-		//    				content = new DummyContentGenerator();
-		//    				// get dummy animes : depuis DummyContentGen. -> <ui:repeat value="#{animeAppBean.dummyAnimes}" var="anime"> dans home.xhtml
-		//    				dummyAnimes = content.getDummyAnimes();
-		//    				// get dummy studios : depuis DummyContentGen. -> <ui:repeat value="#{animeAppBean.dummyAnimes}" var="anime"> dans home.xhtml
-		//    				dummyStudios = content.getDummyStudios();	
-		//    				
-		//    				 //disable populateDb button if DB not empty
-		//    				setRenderPopulateButton(isDbNotPopulated());
-		//    			} catch (ParseException e) {
-		//    				// TODO Auto-generated catch block
-		//    				e.printStackTrace();
-		//    			}		
-		return "home";
+		studioNames = new ArrayList<String>();
+		for(Studio s : studios)
+		{
+			studioNames.add(s.getStudioName());
+			System.out.println("DEBUG : " + s.getStudioName());
+		}
 	}
 
 	// Check if DB populated. Populated = don't render populate db button
@@ -182,10 +158,7 @@ public class AnimeAppBean
 	public String details()
 	{
 		// from DB -> <h:panelGroup layout="block" value="#{animeAppBean.anime}" var="anime"> in details.xhtml
-		//anime = getAnimeById(animeId);
-
-		// from dummy content -> <h:panelGroup layout="block" value="#{animeAppBean.dummyAnime}" var="anime"> in details.xhtml
-		dummyAnime = content.getDummyAnimes().get(animeId);
+		anime = getAnimeById(animeId);
 
 		return "details";
 	}
