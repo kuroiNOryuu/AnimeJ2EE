@@ -6,21 +6,31 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core">
 
+
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+<div class="container">
     <ui:define name="content">
- 	   <h:form>  		
-			<h:outputText value="Name : "/><h:inputText/><br/>
-		   	<h:outputText value="Start date : "/><h:inputText/><br/>
-		   	<h:outputText value="End date : "/><h:inputText/><br/>
-		   	<h:outputText value="Episode duration : "/><h:inputText/><br/>
-		   	<h:outputText value="Number of episodes : "/><h:inputText/><br/>
-		   	<h:outputText value="Studio : "/>
-		   	<h:selectOneMenu value="#{animeAppBean.studioName}" display = "block">
-	        	<f:selectItems value="#{animeAppBean.studioNames}"/>
-	        </h:selectOneMenu>
-	        <br/>
-		   	<h:commandButton value="Save" type = "submit" action="#{animeAppBean.saveNewAnime}"></h:commandButton><br/>  
-   		</h:form>
+    	<div class="card-panel cyan lighten-5"> 
+	 	   <h:form>  		
+				<h:outputText value="Name : "/><h:inputText/><br/>
+			   	<h:outputText value="Start date : "/><h:inputText class="datepicker"/><br/>
+			   	<h:outputText value="End date : "/><h:inputText class="datepicker"/><br/>
+			   	<h:outputText value="Episode duration : "/><h:inputText/><br/>
+			   	<h:outputText value="Number of episodes : "/><h:inputText/><br/>
+			   	<h:outputText value="Studio : "/>
+			   	<h:selectOneMenu value="#{animeAppBean.studioName}" class="dropdown-trigger waves-effect waves-teal btn-flat">
+		        	<f:selectItems value="#{animeAppBean.studioNames}"/>
+		        </h:selectOneMenu>
+		        <br></br>
+		        <div class="row">
+		        	<div class="col s8 m8 l8 xl8"/>
+			        <div class="col s4 m4 l4 xl4">
+				   		<h:commandButton value="Save" type = "submit" action="#{animeAppBean.saveNewAnime}" class="waves-effect waves-light btn-small z-depth-3 right-align"></h:commandButton><br/>  
+			   		</div>
+		   		</div>
+	   		</h:form>
+   		 </div>
     </ui:define>
+</div>
 </ui:composition>
 </html>

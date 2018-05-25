@@ -8,17 +8,19 @@
 
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
+    <div class="card-panel cyan lighten-5"> 
         <h:panelGroup layout="block" value="#{animeAppBean.anime}" var="anime">
    			<h:panelGroup >
-   				<h:outputText value="#{anime.animeName}"/><br/>
-   				<h:outputText value="Start date : "/><h:outputText value="#{anime.startDate}"/><br/>
-   				<h:outputText value="End date : "/><h:outputText value="#{anime.endDate}"/><br/>
-   				<h:outputText value="Episode duration : "/><h:outputText value="#{anime.episodeDuration} min"/><br/>
-   				<h:outputText value="Number of episodes : "/><h:outputText value="#{anime.numberOfEpisodes}"/><br/>
-   				<h:outputText value="Studio : "/><h:outputText value="#{anime.studio.studioName}"/><br/>
-   				<h:outputText value="Description : "/><h:outputText value="#{anime.animeDescription}"/><br/>
+   				<h3><h:outputText value="#{anime.animeName}"/></h3><br/>
+   				<b><h:outputText value="Start date : "/></b><h:outputText value="#{anime.startDate}"/><br/>
+   				<b><h:outputText value="End date : "/></b><h:outputText value="#{anime.endDate}"/><br/>
+   				<b><h:outputText value="Episode duration : "/></b><h:outputText value="#{anime.episodeDuration} min"/><br/>
+   				<b><h:outputText value="Number of episodes : "/></b><h:outputText value="#{anime.numberOfEpisodes}"/><br/>
+   				<b><h:outputText value="Studio : "/></b><h:outputText value="#{anime.studio.studioName}"/><br/>
+   				<b><h:outputText value="Description : "/></b><br/><h:outputText value="#{anime.animeDescription}"/><br/>
    			</h:panelGroup>
    		</h:panelGroup>
+   		</div>
     </ui:define>
 </ui:composition>
 </html>

@@ -4,11 +4,23 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <head>
   	<title><ui:insert name="title">Default title</ui:insert></title>
+  	
+  	<!-- Imports -->
 	<link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="../resources/css/materialize.min.css" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 	<script src="../resources/js/jquery.min.js"></script>
 	<script src="../resources/js/bootstrap.min.js"></script>
 	<script src="../resources/js/materialize.min.js"></script>
+	
+	<!-- Date Picker init -->
+	<script>
+		$(document).ready(function(){
+			$('.datepicker').datepicker({
+				format:'yyyy-mm-dd'
+			});
+		});
+	</script>
 </head>
 <body>
 <ui:debug hotkey="x" rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}"/>
