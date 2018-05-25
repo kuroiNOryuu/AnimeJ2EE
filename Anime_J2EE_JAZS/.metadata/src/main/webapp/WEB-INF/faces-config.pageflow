@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14141592409490" configfile="/Anime_J2EE_JAZS/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="home.xhtml" x="261" y="245" id="pf152693870768512" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" outlinks="pf152693870768513 pf15270003556280 pf15270003556281" inlinks="pf152693870768513" path="/home.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="addForm.xhtml" x="588" y="240" id="pf15270003556282" inlinks="pf15270003556280" path="/addForm.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="details.xhtml" x="648" y="429" id="pf15270003556283" inlinks="pf15270003556281" path="/details.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="home.xhtml" x="261" y="245" id="pf152693870768512" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf152693870768513 pf15270003556280 pf15270003556281 pf15272337663800" inlinks="pf152693870768513 pf15272337663800" path="/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="addForm.xhtml" x="588" y="240" id="pf15270003556282" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15270003556280" path="/addForm.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="details.xhtml" x="648" y="429" id="pf15270003556283" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf15270003556281" path="/details.xhtml"/>
   <links id="pf152693870768513" target="pf152693870768512" source="pf152693870768512" outcome="#{animeAppBean.populate()}">
     <bendPoints d1Height="-36" d2Height="-36"/>
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
@@ -10,4 +10,9 @@
   </links>
   <links id="pf15270003556280" target="pf15270003556282" source="pf152693870768512" outcome="#{animeAppBean.addAnime}"/>
   <links id="pf15270003556281" target="pf15270003556283" source="pf152693870768512" outcome="#{animeAppBean.details}"/>
+  <links id="pf15272337663800" target="pf152693870768512" source="pf152693870768512" outcome="animeAppBean.removeAnime">
+    <bendPoints d1Height="-66" d2Height="-66"/>
+    <bendPoints d1Width="-94" d1Height="-66" d2Width="-94" d2Height="-66"/>
+    <bendPoints d1Width="-94" d2Width="-94"/>
+  </links>
 </pageflow:Pageflow>

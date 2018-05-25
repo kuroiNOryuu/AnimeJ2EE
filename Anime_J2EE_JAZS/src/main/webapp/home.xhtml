@@ -25,12 +25,14 @@
 		   			<h:panelGroup layout = "block">
 		   				<h:commandLink value="#{anime.animeName}" action = "#{animeAppBean.details}">
 		   					<f:param name = "animeId" value = "anime.idAnime" />
-		   				</h:commandLink><br/>
+		   				</h:commandLink>
+		   				<h:commandButton value = "Delete" action ="#{animeAppBean.removeAnime}" onclick = "#{animeAppBean.setIdAnimeToDelete(anime.idAnime)}">		   					
+		   				</h:commandButton><br/>
 		   				<h:outputText value="Start date : "/><h:outputText value="#{anime.startDate}"/><br/>
 		   				<h:outputText value="End date : "/><h:outputText value="#{anime.endDate}"/><br/>
 		   				<h:outputText value="Episode duration : "/><h:outputText value="#{anime.episodeDuration} min"/><br/>
 		   				<h:outputText value="Number of episodes : "/><h:outputText value="#{anime.numberOfEpisodes}"/><br/>
-		   				<h:outputText value="Studio : "/><h:outputText value="#{anime.studio.studioName}"/><br/>
+		   				<h:outputText value="Studio : "/><h:outputText value="#{anime.studio.studioName}"/><br/>		   				
 		   			</h:panelGroup>
 			   	</div>
 		   	</ui:repeat>

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.model.SelectItem;
+import javax.faces.bean.SessionScoped;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
 import ch.hevs.animeService.AnimeList;
 import ch.hevs.businessobject.Anime;
 import ch.hevs.businessobject.Studio;
@@ -16,7 +18,8 @@ import ch.hevs.businessobject.Studio;
  * TransferBean.java
  * 
  */
-
+@ManagedBean(name="animeApp")
+@SessionScoped
 public class AnimeAppBean
 {
 	private AnimeList animeList;
@@ -27,6 +30,7 @@ public class AnimeAppBean
 	private Studio studio;
 	private String studioName;
 	private boolean renderPopulateButton;
+	private long idAnimeToDelete;
 
 	@PostConstruct
 	public void initialize() throws NamingException {
@@ -106,6 +110,15 @@ public class AnimeAppBean
 	{
 		this.studioName = studioName;
 	}
+	
+	// idAnimeToDelete
+	public long getIdAnimeToDelete() {
+		return idAnimeToDelete;
+	}
+
+	public void setIdAnimeToDelete(long idAnimeToDelete) {
+		this.idAnimeToDelete = idAnimeToDelete;
+	}
 
 	// populateDB
 	public String populate()
@@ -126,7 +139,6 @@ public class AnimeAppBean
 		for(Studio s : studios)
 		{
 			studioNames.add(s.getStudioName());
-			System.out.println("DEBUG : " + s.getStudioName());
 		}
 	}
 
@@ -152,14 +164,11 @@ public class AnimeAppBean
 	// go to details page
 	//this managed property will read value from request parameter pageId
 	@ManagedProperty(value = "#{param.animeId}")
-	//private long animeId;
-	private int animeId;
+	private long animeId;
 
 	public String details()
 	{
-		// from DB -> <h:panelGroup layout="block" value="#{animeAppBean.anime}" var="anime"> in details.xhtml
 		anime = getAnimeById(animeId);
-
 		return "details";
 	}
 
@@ -177,5 +186,21 @@ public class AnimeAppBean
 		// Save data to DB
 		return "home";
 	}
-
+	
+	public String removeAnime()
+	{
+		anime = getAnimeById(idAnimeToDelete);		
+		animeList.deleteAnime(anime);	
+		return "home";
+	}
+	
+	public void updateIdAnimeToDelete()
+	{
+		
+	}
+	
+	public String addAnimeToFavorites()
+	{
+		return null;
+	}
 }
