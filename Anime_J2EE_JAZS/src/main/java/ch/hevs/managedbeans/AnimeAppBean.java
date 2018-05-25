@@ -189,18 +189,9 @@ public class AnimeAppBean
 	
 	public String removeAnime()
 	{
+		System.out.println("DEBUG : REMOVE ANIME " + idAnimeToDelete);
 		anime = getAnimeById(idAnimeToDelete);		
-		animeList.deleteAnime(anime);	
+		//animeList.deleteAnime(anime);	
 		return "home";
-	}
-	
-	public void updateIdAnimeToDelete()
-	{
-		
-	}
-	
-	public String addAnimeToFavorites()
-	{
-		return null;
 	}
 }

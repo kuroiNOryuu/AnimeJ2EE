@@ -21,12 +21,13 @@
 	        <h:commandButton value="New" action="#{animeAppBean.addAnime}" class="waves-effect waves-light btn-small"/><br/>
 	        
 	        <ui:repeat value="#{animeAppBean.animes}" var="anime">
-		   		<div class="card-panel cyan lighten-5">   
+		   		<div class="card-panel cyan lighten-5">  
 		   			<h:panelGroup layout = "block">
 		   				<h:commandLink value="#{anime.animeName}" action = "#{animeAppBean.details}">
 		   					<f:param name = "animeId" value = "anime.idAnime" />
 		   				</h:commandLink>
-		   				<h:commandButton value = "Delete" action ="#{animeAppBean.removeAnime}" onclick = "#{animeAppBean.setIdAnimeToDelete(anime.idAnime)}">		   					
+		   				<h:commandButton value = "Delete" action ="#{animeAppBean.removeAnime}" >
+		   					<f:setPropertyActionListener target="#{animeAppBean.idAnimeToDelete}" value="#{anime.idAnime}" />
 		   				</h:commandButton><br/>
 		   				<h:outputText value="Start date : "/><h:outputText value="#{anime.startDate}"/><br/>
 		   				<h:outputText value="End date : "/><h:outputText value="#{anime.endDate}"/><br/>
