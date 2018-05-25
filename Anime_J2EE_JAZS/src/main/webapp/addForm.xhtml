@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+    <ui:define name="content">
+ 	   <h:form>  		
+			<h:outputText value="Name : "/><h:inputText/><br/>
+		   	<h:outputText value="Start date : "/><h:inputText/><br/>
+		   	<h:outputText value="End date : "/><h:inputText/><br/>
+		   	<h:outputText value="Episode duration : "/><h:inputText/><br/>
+		   	<h:outputText value="Number of episodes : "/><h:inputText/><br/>
+		   	<h:outputText value="Studio : "/>
+		   	<h:selectOneMenu value="#{animeAppBean.studioName}" display = "block">
+	        	<f:selectItems value="#{animeAppBean.studioNames}"/>
+	        </h:selectOneMenu>
+	        <br/>
+		   	<h:commandButton value="Save" type = "submit" action="#{animeAppBean.saveNewAnime}"></h:commandButton><br/>  
+   		</h:form>
+    </ui:define>
+</ui:composition>
+</html>
