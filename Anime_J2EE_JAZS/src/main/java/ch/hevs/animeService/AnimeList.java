@@ -28,10 +28,12 @@ public interface AnimeList {
 	
 	// USER
 	void saveUser(User u);
+	User getUserById(String email);
+	List<User> getUsers();
 	
 	// USER ANIME
-	void addAnimeToFavorites(String id);
-	void removeAnimeFromFavorites(String id);
+	void addAnimeToFavorites(Long animeId, String userEmail);
+	void removeAnimeFromFavorites(Long animeId, String userEmail);
 
 	// POPULATE
 	void populate();

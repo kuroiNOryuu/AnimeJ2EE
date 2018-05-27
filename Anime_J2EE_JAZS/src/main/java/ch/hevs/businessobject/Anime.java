@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,12 +40,20 @@ public class Anime {
 	//private Set<UserAnime> userAnimes;
 		
 	// Relations
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Studio studio;
 	
 	@ManyToMany(mappedBy="userAnimes")
 	private Set<User> users;
-
+	
+	// Helper Methods
+	public void addUser(User user){
+		users.add(user); //do not call directly, use User.addAnime(anime)!
+	}
+	
+	public void removeUser(User user){
+		users.remove(user);  //do not call directly, use User.removeAnime(anime)!
+	}
 	
 	// Id Anime
 	public Long getIdAnime() {

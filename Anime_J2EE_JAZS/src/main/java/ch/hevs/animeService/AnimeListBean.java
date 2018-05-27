@@ -31,6 +31,9 @@ public class AnimeListBean implements AnimeList {
 	private static final String JPQL_SELECT_BY_STUDIONAME = "SELECT s FROM Studio s WHERE s.StudioName=:studioName";
 	private static final String PARAM_STUDIONAME = "studioName";
 	private static final String JPQL_SELECT_ALL_STUDIOS = "SELECT s FROM Studio s";
+	private static final String JPQL_SELECT_BY_USER_EMAIL = "SELECT u FROM User u WHERE s.email=:userEmail";
+	private static final String PARAM_USER_EMAIL = "userEmail";
+	private static final String JPQL_SELECT_ALL_USERS = "SELECT u FROM User u";
 	
 	
 	@SuppressWarnings("unchecked")
@@ -217,19 +220,71 @@ public class AnimeListBean implements AnimeList {
 		
 	}
 	
+	
+	// Get User by its ID
+	public User getUserById(String userEmail) throws AnimeException {
+		User result = new User();
+		
+        Query query = em.createQuery( JPQL_SELECT_BY_USER_EMAIL );
+        query.setParameter( PARAM_USER_EMAIL, userEmail );
+
+        try {
+            result = (User) query.getSingleResult();
+        } catch ( NoResultException e ) {
+            return null;
+        } catch ( Exception e ) {
+            throw new AnimeException( e );
+        }
+		return result;
+
+	}
+	
+	// Get All Users
+	public List<User> getUsers() throws AnimeException {
+		List<User> result = new ArrayList<User>();
+		
+        Query query = em.createQuery( JPQL_SELECT_ALL_USERS );
+
+        try {
+            result = query.getResultList();
+        } catch ( NoResultException e ) {
+            return null;
+        } catch ( Exception e ) {
+            throw new AnimeException( e );
+        }
+		
+		return result;
+
+	}
+
+	
 	// USER ANIMES
 	// Add Anime to user list
 	@Override
-	public void addAnimeToFavorites(String id) {
-		// TODO Auto-generated method stub
-		
+	public void addAnimeToFavorites(Long animeId, String userEmail) throws AnimeException {
+		try {
+			User user = getUserById(userEmail);
+			Anime anime = getAnimeById(animeId);
+			user.addAnime(anime); //Adds anime to User and user to Anime
+			saveUser(user);
+			saveAnime(anime);
+		} catch ( Exception e ) {
+			throw new AnimeException( e );
+		}
 	}
 	
 	// Remove Anime to user list
 	@Override
-	public void removeAnimeFromFavorites(String id) {
-		// TODO Auto-generated method stub
-		
+	public void removeAnimeFromFavorites(Long animeId, String userEmail) throws AnimeException {
+		try {
+			User user = getUserById(userEmail);
+			Anime anime = getAnimeById(animeId);
+			user.removeAnime(anime); //Removes anime from User and user from Anime
+			saveUser(user);
+			saveAnime(anime);
+		} catch ( Exception e ) {
+			throw new AnimeException( e );
+		}
 	}
 	
 	//POPULATE

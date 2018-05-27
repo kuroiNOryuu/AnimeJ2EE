@@ -3,12 +3,10 @@ package ch.hevs.businessobject;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,6 +28,17 @@ public class User {
 	// New version without supp element
 	@ManyToMany
 	private Set<Anime> userAnimes;
+	
+	// Helper Methods
+	public void addAnime(Anime anime){
+		userAnimes.add(anime);
+		anime.addUser(this);
+	}
+	
+	public void removeAnime(Anime anime){
+		userAnimes.remove(anime);
+		anime.removeUser(this);
+	}
 	
 	// Email
 	public String getEmail() {
