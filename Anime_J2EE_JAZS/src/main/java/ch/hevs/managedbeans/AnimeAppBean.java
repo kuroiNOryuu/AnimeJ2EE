@@ -226,6 +226,7 @@ public class AnimeAppBean
 	// Get necessary content for homepage display (full anime list)
 	public void getContent()
 	{
+		System.out.println("DEBUG : GET CONTENT");
 		animes = animeList.getAnimes();
 		studios = animeList.getStudios();
 		studioNames = new ArrayList<String>();
@@ -234,10 +235,7 @@ public class AnimeAppBean
 			studioNames.add(s.getStudioName());
 		}
 		
-		consultedAnimes = history.getConsultedAnimes();
-		nbOfConsultedAnimes = consultedAnimes.size();
-		if(nbOfConsultedAnimes > 0)
-			lastConsultedAnime = consultedAnimes.get(consultedAnimes.size()-1);
+		updateHistory();
 	}
 
 	// Check if DB populated. Populated = don't render populate db button
@@ -298,7 +296,7 @@ public class AnimeAppBean
 	public String addAnimeToFavorites()
 	{
 		animeList.addAnimeToFavorites(idFavoriteAnime, userEmail);
-		favoritesAnimes = (List<Anime>) animeList.getUserAnimes(userEmail);
+		//favoritesAnimes = (List<Anime>) animeList.getUserAnimes(userEmail);
 		return "favorites";
 	}
 	
@@ -312,17 +310,26 @@ public class AnimeAppBean
 	
 	public String showFavoritesList()
 	{
-		// Get favorites
-		favoritesAnimes = (List<Anime>) animeList.getUserAnimes(userEmail);
+		//favoritesAnimes = (List<Anime>) animeList.getUserAnimes(userEmail);
 		return "favorites";
 	}
 	
 	public void updateConsultedAnimes(String name){
 		history.addConsultedAnimes(name);
+		System.out.println("DEBUG : LAST ANIME = " + consultedAnimes.get(consultedAnimes.size()-1));
 	}
 	
 	public String backHome(){
 		System.out.println("DEBUG : BACK HOME");
+		updateHistory();
 		return "home";
+	}
+	
+	public void updateHistory()
+	{
+		consultedAnimes = history.getConsultedAnimes();
+		nbOfConsultedAnimes = consultedAnimes.size();
+		if(nbOfConsultedAnimes > 0)
+			lastConsultedAnime = consultedAnimes.get(consultedAnimes.size()-1);
 	}
 }
