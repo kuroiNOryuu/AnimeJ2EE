@@ -18,9 +18,10 @@
     <ui:define name="content">
     	<h:form>
 	        <h:commandButton rendered="#{animeAppBean.renderPopulateButton}" value="Populate DB" action="#{animeAppBean.populate}" class="waves-effect waves-light btn-small z-depth-3 pulse"/><br/>
+	        <h:outputText value = "Consulted animes : #{animeAppBean.nbOfConsultedAnimes}, last consulted : #{animeAppBean.lastConsultedAnime}"/><br/><br/>
 	        <h:commandButton value="New" action="#{animeAppBean.addAnime}" class="waves-effect waves-light btn-small"/>
 	        <h:commandButton value="Favorites" action="#{animeAppBean.showFavoritesList}" class="waves-effect waves-light btn-small"/><br/>
-	        <h:outputText>Animes list</h:outputText>	        
+	        <h:outputText value = "Animes list"/>	        
 	        <ui:repeat value="#{animeAppBean.animes}" var="anime">
 		   		<div class="card-panel cyan lighten-5">  
 		   			<h:panelGroup layout = "block">
@@ -28,7 +29,7 @@
 		   					<f:setPropertyActionListener target="#{animeAppBean.idFavoriteAnime}" value="#{anime.idAnime}" />
 		   				</h:commandButton>
 		   				<h:commandLink value="#{anime.animeName}" action = "#{animeAppBean.details}">
-		   					<f:param name = "animeId" value = "anime.idAnime" />
+		   					<f:setPropertyActionListener target="#{animeAppBean.animeId}" value="#{anime.idAnime}" />
 		   				</h:commandLink>
 		   				<h:commandButton value = "Delete" action ="#{animeAppBean.removeAnime}" class="waves-effect waves-light btn-small">
 		   					<f:setPropertyActionListener target="#{animeAppBean.idAnimeToDelete}" value="#{anime.idAnime}" />

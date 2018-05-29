@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import ch.hevs.animeService.AnimeList;
+import ch.hevs.animeService.History;
 import ch.hevs.businessobject.Anime;
 import ch.hevs.businessobject.Studio;
 
@@ -23,10 +24,12 @@ import ch.hevs.businessobject.Studio;
 public class AnimeAppBean
 {
 	private AnimeList animeList;
+	private History history;
 	private List<Anime> animes;
 	private List<Studio> studios;
 	private List<String> studioNames;
 	private Anime anime;  
+	private long animeId;
 	private Studio studio;
 	private String studioName;
 	private boolean renderPopulateButton;
@@ -36,14 +39,18 @@ public class AnimeAppBean
 	private String userEmail = "jane@doe.net";
 	private List<Anime> favoritesAnimes;
 	private long idAnimeToRemoveFromFavorites;
+	private List<String> consultedAnimes;
+	private int nbOfConsultedAnimes;
+	private String lastConsultedAnime;
 
 	@PostConstruct
 	public void initialize() throws NamingException {
 
-		// JNDI to inject reference to AnimeList EJB
+		// JNDI to inject reference to EJBs
 		InitialContext ctx = new InitialContext();
-		animeList = (AnimeList) ctx.lookup("java:global/Anime_J2EE_JAZS-0.0.1-SNAPSHOT/AnimeListBean!ch.hevs.animeService.AnimeList");    
-
+		animeList = (AnimeList) ctx.lookup("java:global/Anime_J2EE_JAZS-0.0.1-SNAPSHOT/AnimeListBean!ch.hevs.animeService.AnimeList");
+		history = (History) ctx.lookup("java:global/Anime_J2EE_JAZS-0.0.1-SNAPSHOT/HistoryBean!ch.hevs.animeService.History");
+		
 		getContent();
 
 		//disable populateDb button if DB not empty
@@ -179,6 +186,33 @@ public class AnimeAppBean
 		this.idAnimeToRemoveFromFavorites = idAnimeToRemoveFromFavorites;
 	}
 
+	// consultedAnimes
+	public List<String> getConsultedAnimes() {
+		return consultedAnimes;
+	}
+
+	public void setConsultedAnimes(List<String> consultedAnimes) {
+		this.consultedAnimes = consultedAnimes;
+	}
+
+	// nbOfConsultedAnimes
+	public int getNbOfConsultedAnimes() {
+		return nbOfConsultedAnimes;
+	}
+
+	public void setNbOfConsultedAnimes(int nbOfConsultedAnimes) {
+		this.nbOfConsultedAnimes = nbOfConsultedAnimes;
+	}
+
+	// lastConsultedAnime
+	public String getLastConsultedAnime() {
+		return lastConsultedAnime;
+	}
+
+	public void setLastConsultedAnime(String lastConsultedAnime) {
+		this.lastConsultedAnime = lastConsultedAnime;
+	}
+
 	// populateDB
 	public String populate()
 	{
@@ -199,6 +233,11 @@ public class AnimeAppBean
 		{
 			studioNames.add(s.getStudioName());
 		}
+		
+		consultedAnimes = history.getConsultedAnimes();
+		nbOfConsultedAnimes = consultedAnimes.size();
+		if(nbOfConsultedAnimes > 0)
+			lastConsultedAnime = consultedAnimes.get(consultedAnimes.size()-1);
 	}
 
 	// Check if DB populated. Populated = don't render populate db button
@@ -221,13 +260,10 @@ public class AnimeAppBean
 	}
 
 	// go to details page
-	//this managed property will read value from request parameter pageId
-	@ManagedProperty(value = "#{param.animeId}")
-	private long animeId;
-
 	public String details()
-	{
+	{		
 		anime = getAnimeById(animeId);
+		updateConsultedAnimes(anime.getAnimeName());
 		return "details";
 	}
 
@@ -261,9 +297,8 @@ public class AnimeAppBean
 	
 	public String addAnimeToFavorites()
 	{
-		System.out.println("DEBUG : ADD ANIME TO FAVORITES : " + idFavoriteAnime);
 		animeList.addAnimeToFavorites(idFavoriteAnime, userEmail);
-		// Get favorites
+		favoritesAnimes = (List<Anime>) animeList.getUserAnimes(userEmail);
 		return "favorites";
 	}
 	
@@ -278,6 +313,16 @@ public class AnimeAppBean
 	public String showFavoritesList()
 	{
 		// Get favorites
+		favoritesAnimes = (List<Anime>) animeList.getUserAnimes(userEmail);
 		return "favorites";
+	}
+	
+	public void updateConsultedAnimes(String name){
+		history.addConsultedAnimes(name);
+	}
+	
+	public String backHome(){
+		System.out.println("DEBUG : BACK HOME");
+		return "home";
 	}
 }

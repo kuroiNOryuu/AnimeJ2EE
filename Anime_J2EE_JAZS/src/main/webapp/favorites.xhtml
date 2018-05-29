@@ -18,7 +18,7 @@
     <ui:define name="content">
     	<h:form>	  
     		<h:outputText>My favorites</h:outputText>      
-	        <ui:repeat value="#{animeAppBean.animes}" var="anime">
+	        <ui:repeat value="#{animeAppBean.favoritesAnimes}" var="anime">
 		   		<div class="card-panel cyan lighten-5">  
 		   			<h:panelGroup layout = "block">
 		   				<h:commandLink value="#{anime.animeName}" action = "#{animeAppBean.details}">
