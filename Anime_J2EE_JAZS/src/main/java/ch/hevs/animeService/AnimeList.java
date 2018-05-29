@@ -1,5 +1,6 @@
 package ch.hevs.animeService;
 
+import java.util.HashSet;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -34,6 +35,7 @@ public interface AnimeList {
 	// USER ANIME
 	void addAnimeToFavorites(Long animeId, String userEmail);
 	void removeAnimeFromFavorites(Long animeId, String userEmail);
+	HashSet<Anime> getUserAnimes(String userEmail);
 
 	// POPULATE
 	void populate();

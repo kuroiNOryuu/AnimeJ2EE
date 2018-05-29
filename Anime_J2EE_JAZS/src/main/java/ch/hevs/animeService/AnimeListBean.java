@@ -2,11 +2,11 @@ package ch.hevs.animeService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -22,24 +22,24 @@ public class AnimeListBean implements AnimeList {
 	@PersistenceContext(name = "animePU")
 	private EntityManager em;
 	
-	//JPQL Queries
+	/*JPQL Queries*/
+	//Anime
 	private static final String JPQL_SELECT_BY_IDANIME = "SELECT a FROM Anime a WHERE a.idAnime=:idAnime";
 	private static final String PARAM_IDANIME = "idAnime";
 	private static final String JPQL_SELECT_ALL_ANIMES = "SELECT a FROM Anime a";
+	
+	//Studio
 	private static final String JPQL_SELECT_BY_IDSTUDIO = "SELECT s FROM Studio s WHERE s.idStudio=:idStudio";
 	private static final String PARAM_IDSTUDIO = "idStudio";
 	private static final String JPQL_SELECT_BY_STUDIONAME = "SELECT s FROM Studio s WHERE s.StudioName=:studioName";
 	private static final String PARAM_STUDIONAME = "studioName";
 	private static final String JPQL_SELECT_ALL_STUDIOS = "SELECT s FROM Studio s";
+
+	//User
 	private static final String JPQL_SELECT_BY_USER_EMAIL = "SELECT u FROM User u WHERE u.email=:userEmail";
 	private static final String PARAM_USER_EMAIL = "userEmail";
 	private static final String JPQL_SELECT_ALL_USERS = "SELECT u FROM User u";
-	
-	
-	@SuppressWarnings("unchecked")
-	public List<Anime> getAnimes2() {
-		return (List<Anime>) em.createQuery("from Anime").getResultList();
-	}
+
 	
 	// ANIMES
 	// Create new Anime
@@ -285,6 +285,18 @@ public class AnimeListBean implements AnimeList {
 		} catch ( Exception e ) {
 			throw new AnimeException( e );
 		}
+	}
+	
+	// Get User Animes
+	public HashSet<Anime> getUserAnimes(String userEmail) throws AnimeException {
+		User user = new User();
+		try {
+			user = getUserById(userEmail);
+		} catch ( Exception e ) {
+			throw new AnimeException( e );
+		}
+		
+		return (HashSet<Anime>) user.getUserAnimes();
 	}
 	
 	//POPULATE
