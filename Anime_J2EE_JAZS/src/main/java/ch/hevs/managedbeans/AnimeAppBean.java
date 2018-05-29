@@ -31,6 +31,11 @@ public class AnimeAppBean
 	private String studioName;
 	private boolean renderPopulateButton;
 	private long idAnimeToDelete;
+	private Anime animeToAdd;
+	private long idFavoriteAnime;
+	private String userEmail = "jane@doe.net";
+	private List<Anime> favoritesAnimes;
+	private long idAnimeToRemoveFromFavorites;
 
 	@PostConstruct
 	public void initialize() throws NamingException {
@@ -119,6 +124,60 @@ public class AnimeAppBean
 	public void setIdAnimeToDelete(long idAnimeToDelete) {
 		this.idAnimeToDelete = idAnimeToDelete;
 	}
+	
+	// animeToAdd
+	public Anime getAnimeToAdd() {
+		return animeToAdd;
+	}
+
+	public void setAnimeToAdd(Anime animeToAdd) {
+		this.animeToAdd = animeToAdd;
+	}
+
+	// idFavoriteAnime
+	public long getIdFavoriteAnime() {
+		return idFavoriteAnime;
+	}
+
+	public void setIdFavoriteAnime(long idFavoriteAnime) {
+		this.idFavoriteAnime = idFavoriteAnime;
+	}
+
+	// userEmail
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	// favoritesAnimes
+	public List<Anime> getFavoritesAnimes() {
+		return favoritesAnimes;
+	}
+
+	public void setFavoritesAnimes(List<Anime> favoritesAnimes) {
+		this.favoritesAnimes = favoritesAnimes;
+	}
+
+	// AnimeId
+	public long getAnimeId() {
+		return animeId;
+	}
+
+	public void setAnimeId(long animeId) {
+		this.animeId = animeId;
+	}
+
+	// idAnimeToRemoveFromFavorites
+	public long getIdAnimeToRemoveFromFavorites() {
+		return idAnimeToRemoveFromFavorites;
+	}
+
+	public void setIdAnimeToRemoveFromFavorites(long idAnimeToRemoveFromFavorites) {
+		this.idAnimeToRemoveFromFavorites = idAnimeToRemoveFromFavorites;
+	}
 
 	// populateDB
 	public String populate()
@@ -172,18 +231,23 @@ public class AnimeAppBean
 		return "details";
 	}
 
-	public Anime getAnimeById(long id) {
+	public Anime getAnimeById(long id) 
+	{
 		return animeList.getAnimeById(id);
 	}
 
 	public String addAnime()
 	{
+		System.out.println("DEBUG : ADD ANIME");
 		return "addForm";
 	}
 
 	public String saveNewAnime()
 	{
-		// Save data to DB
+		studio = animeList.getStudioByName(studioName);
+		animeToAdd.setStudio(studio);
+		System.out.println("DEBUG : SAVE ANIME, " + animeToAdd.getAnimeName() + ", "+ animeToAdd.getStudio().getStudioName());
+		//animeList.saveAnime(animeToAdd);
 		return "home";
 	}
 	
@@ -193,5 +257,27 @@ public class AnimeAppBean
 		anime = getAnimeById(idAnimeToDelete);		
 		//animeList.deleteAnime(anime);	
 		return "home";
+	}
+	
+	public String addAnimeToFavorites()
+	{
+		System.out.println("DEBUG : ADD ANIME TO FAVORITES : " + idFavoriteAnime);
+		animeList.addAnimeToFavorites(idFavoriteAnime, userEmail);
+		// Get favorites
+		return "favorites";
+	}
+	
+	public String removeAnimeFromFavorites()
+	{
+		System.out.println("DEBUG : REMOVE ANIME FROM FAVORITES : " + idAnimeToRemoveFromFavorites);		
+		animeList.removeAnimeFromFavorites(idAnimeToRemoveFromFavorites, userEmail);
+		// Update screen
+		return "favorites";
+	}
+	
+	public String showFavoritesList()
+	{
+		// Get favorites
+		return "favorites";
 	}
 }

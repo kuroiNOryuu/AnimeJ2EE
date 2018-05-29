@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14141592409490" configfile="/Anime_J2EE_JAZS/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="home.xhtml" x="261" y="245" id="pf152693870768512" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf152693870768513 pf15270003556280 pf15270003556281 pf15272337663800" inlinks="pf152693870768513 pf15272337663800" path="/home.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="addForm.xhtml" x="588" y="240" id="pf15270003556282" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15270003556280" path="/addForm.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="details.xhtml" x="648" y="429" id="pf15270003556283" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf15270003556281" path="/details.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="home.xhtml" x="216" y="156" id="pf152693870768512" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" outlinks="pf152693870768513 pf15270003556280 pf15270003556281 pf15272337663800 pf15275843335190 pf15275860875222" inlinks="pf152693870768513 pf15272337663800" path="/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="addForm.xhtml" x="543" y="151" id="pf15270003556282" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15270003556280" path="/addForm.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="details.xhtml" x="843" y="283" id="pf15270003556283" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf15270003556281" path="/details.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="favorites.xhtml" x="231" y="379" id="pf15275843335191" inlinks="pf15275843335190 pf15275860875222" path="/favorites.xhtml"/>
   <links id="pf152693870768513" target="pf152693870768512" source="pf152693870768512" outcome="#{animeAppBean.populate()}">
     <bendPoints d1Height="-36" d2Height="-36"/>
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
@@ -15,4 +16,6 @@
     <bendPoints d1Width="-94" d1Height="-66" d2Width="-94" d2Height="-66"/>
     <bendPoints d1Width="-94" d2Width="-94"/>
   </links>
+  <links id="pf15275843335190" target="pf15275843335191" source="pf152693870768512" outcome="#{animeAppBean.addAnimeToFavorites}"/>
+  <links id="pf15275860875222" target="pf15275843335191" source="pf152693870768512" outcome="#{animeAppBean.showFavoritesList}"/>
 </pageflow:Pageflow>
