@@ -1,6 +1,7 @@
 package ch.hevs.managedbeans;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +10,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import ch.hevs.animeService.AnimeList;
 import ch.hevs.animeService.History;
@@ -19,12 +23,14 @@ import ch.hevs.businessobject.Studio;
  * TransferBean.java
  * 
  */
-@ManagedBean(name="animeApp")
-@SessionScoped
+
 public class AnimeAppBean
 {
+	// EJB
 	private AnimeList animeList;
 	private History history;
+	
+	// Display
 	private List<Anime> animes;
 	private List<Studio> studios;
 	private List<String> studioNames;
@@ -33,12 +39,27 @@ public class AnimeAppBean
 	private Studio studio;
 	private String studioName;
 	private boolean renderPopulateButton;
-	private long idAnimeToDelete;
+	
+	// Add anime
 	private Anime animeToAdd;
+	private Long idAnimeToAdd;	
+	private String animeNameToAdd;
+	private Date animeStartDateToAdd;
+	private Date animeEndDateToAdd;
+	private String animeDescriptionToAdd;
+	private int animeEpisodeDurationToAdd;
+	private int animeNumberOfEpisodesToAdd;
+	
+	// Delete anime
+	private long idAnimeToDelete;
 	private long idFavoriteAnime;
+	
+	// Favorites list
 	private String userEmail = "jane@doe.net";
 	private List<Anime> favoritesAnimes;
 	private long idAnimeToRemoveFromFavorites;
+	
+	// History management
 	private List<String> consultedAnimes;
 	private int nbOfConsultedAnimes;
 	private String lastConsultedAnime;
@@ -123,6 +144,62 @@ public class AnimeAppBean
 		this.studioName = studioName;
 	}
 	
+	public Long getIdAnimeToAdd() {
+		return idAnimeToAdd;
+	}
+
+	public void setIdAnimeToAdd(Long idAnimeToAdd) {
+		this.idAnimeToAdd = idAnimeToAdd;
+	}
+
+	public String getAnimeNameToAdd() {
+		return animeNameToAdd;
+	}
+
+	public void setAnimeNameToAdd(String animeNameToAdd) {
+		this.animeNameToAdd = animeNameToAdd;
+	}
+
+	public Date getAnimeStartDateToAdd() {
+		return animeStartDateToAdd;
+	}
+
+	public void setAnimeStartDateToAdd(Date animeStartDateToAdd) {
+		this.animeStartDateToAdd = animeStartDateToAdd;
+	}
+
+	public Date getAnimeEndDateToAdd() {
+		return animeEndDateToAdd;
+	}
+
+	public void setAnimeEndDateToAdd(Date animeEndDateToAdd) {
+		this.animeEndDateToAdd = animeEndDateToAdd;
+	}
+
+	public String getAnimeDescriptionToAdd() {
+		return animeDescriptionToAdd;
+	}
+
+	public void setAnimeDescriptionToAdd(String animeDescriptionToAdd) {
+		this.animeDescriptionToAdd = animeDescriptionToAdd;
+	}
+
+	public int getAnimeEpisodeDurationToAdd() {
+		return animeEpisodeDurationToAdd;
+	}
+
+	public void setAnimeEpisodeDurationToAdd(int animeEpisodeDurationToAdd) {
+		this.animeEpisodeDurationToAdd = animeEpisodeDurationToAdd;
+	}
+
+	public int getAnimeNumberOfEpisodesToAdd() {
+		return animeNumberOfEpisodesToAdd;
+	}
+
+	public void setAnimeNumberOfEpisodesToAdd(int animeNumberOfEpisodesToAdd) {
+		this.animeNumberOfEpisodesToAdd = animeNumberOfEpisodesToAdd;
+	}
+
 	// idAnimeToDelete
 	public long getIdAnimeToDelete() {
 		return idAnimeToDelete;
@@ -272,16 +349,25 @@ public class AnimeAppBean
 
 	public String addAnime()
 	{
-		System.out.println("DEBUG : ADD ANIME");
 		return "addForm";
 	}
 
 	public String saveNewAnime()
 	{
+		// Set animeToAdd with user input
+		animeToAdd = new Anime();
 		studio = animeList.getStudioByName(studioName);
+		System.out.println("DEBUG : ADD NEW ANIME -> " + studio.getStudioName());
 		animeToAdd.setStudio(studio);
-		System.out.println("DEBUG : SAVE ANIME, " + animeToAdd.getAnimeName() + ", "+ animeToAdd.getStudio().getStudioName());
-		//animeList.saveAnime(animeToAdd);
+		animeToAdd.setAnimeDescription(animeDescriptionToAdd);
+		animeToAdd.setAnimeName(animeNameToAdd);
+		animeToAdd.setEndDate(animeEndDateToAdd);
+		animeToAdd.setEpisodeDuration(animeEpisodeDurationToAdd);
+		animeToAdd.setNumberOfEpisodes(animeNumberOfEpisodesToAdd);
+		animeToAdd.setStartDate(animeStartDateToAdd);
+		
+		System.out.println("DEBUG : SAVE ANIME = " + animeToAdd.getAnimeName() + ", "+ animeToAdd.getStudio().getStudioName());
+		animeList.saveAnime(animeToAdd);
 		return "home";
 	}
 	
@@ -320,7 +406,6 @@ public class AnimeAppBean
 	}
 	
 	public String backHome(){
-		System.out.println("DEBUG : BACK HOME");
 		updateHistory();
 		return "home";
 	}
