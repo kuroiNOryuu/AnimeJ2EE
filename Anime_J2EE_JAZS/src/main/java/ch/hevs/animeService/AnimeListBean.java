@@ -2,9 +2,11 @@ package ch.hevs.animeService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
+import javax.annotation.Resource;
+//import javax.annotation.security.RolesAllowed;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -17,15 +19,21 @@ import ch.hevs.businessobject.User;
 import ch.hevs.exception.AnimeException;
 
 @Stateless
+//@RolesAllowed(value = { "user" })
 public class AnimeListBean implements AnimeList {
 
 	@PersistenceContext(name = "animePU")
 	private EntityManager em;
 	
+	@Resource
+	private SessionContext ctx;
+	
 	/*JPQL Queries*/
 	//Anime
 	private static final String JPQL_SELECT_BY_IDANIME = "SELECT a FROM Anime a WHERE a.idAnime=:idAnime";
 	private static final String PARAM_IDANIME = "idAnime";
+	private static final String JPQL_SELECT_BY_ANIMENAME = "SELECT a FROM Anime a WHERE a.animeName=:animeName";
+	private static final String PARAM_ANIMENAME = "animeName";
 	private static final String JPQL_SELECT_ALL_ANIMES = "SELECT a FROM Anime a";
 	
 	//Studio
@@ -38,6 +46,8 @@ public class AnimeListBean implements AnimeList {
 	//User
 	private static final String JPQL_SELECT_BY_USER_EMAIL = "SELECT u FROM User u WHERE u.email=:userEmail";
 	private static final String PARAM_USER_EMAIL = "userEmail";
+	private static final String JPQL_SELECT_BY_USERNAME = "SELECT u FROM User u WHERE u.username=:userName";
+	private static final String PARAM_USERNAME = "userName";
 	private static final String JPQL_SELECT_ALL_USERS = "SELECT u FROM User u";
 	
 	//UserAnimes
@@ -47,9 +57,9 @@ public class AnimeListBean implements AnimeList {
 	// ANIMES
 	// Create new Anime
 	public void saveAnime(Anime a) throws AnimeException {
-		
+
         try {
-            em.persist( a );
+            em.merge( a );
         } catch ( Exception e ) {
             throw new AnimeException( e );
         }
@@ -62,6 +72,24 @@ public class AnimeListBean implements AnimeList {
 		
         Query query = em.createQuery( JPQL_SELECT_BY_IDANIME );
         query.setParameter( PARAM_IDANIME, idAnime );
+
+        try {
+            result = (Anime) query.getSingleResult();
+        } catch ( NoResultException e ) {
+            return null;
+        } catch ( Exception e ) {
+            throw new AnimeException( e );
+        }
+		return result;
+
+	}
+	
+	// Get Anime by its name
+	public Anime getAnimeByName(String animeName) throws AnimeException {
+		Anime result = new Anime();
+		
+        Query query = em.createQuery( JPQL_SELECT_BY_ANIMENAME );
+        query.setParameter( PARAM_ANIMENAME, animeName );
 
         try {
             result = (Anime) query.getSingleResult();
@@ -245,6 +273,24 @@ public class AnimeListBean implements AnimeList {
 
 	}
 	
+	// Get User by its name
+	public User getUserByName(String userName) throws AnimeException {
+		User result = new User();
+		
+        Query query = em.createQuery( JPQL_SELECT_BY_USERNAME );
+        query.setParameter( PARAM_USERNAME, userName );
+
+        try {
+            result = (User) query.getSingleResult();
+        } catch ( NoResultException e ) {
+            return null;
+        } catch ( Exception e ) {
+            throw new AnimeException( e );
+        }
+		return result;
+
+	}
+	
 	// Get All Users
 	public List<User> getUsers() throws AnimeException {
 		List<User> result = new ArrayList<User>();
@@ -267,9 +313,10 @@ public class AnimeListBean implements AnimeList {
 	// USER ANIMES
 	// Add Anime to user list
 	@Override
-	public void addAnimeToFavorites(Long animeId, String userEmail) throws AnimeException {
+	public void addAnimeToFavorites(Long animeId) throws AnimeException {
+
 		try {
-			User user = getUserById(userEmail);
+			User user = getUserByName(ctx.getCallerPrincipal().toString());
 			Anime anime = getAnimeById(animeId);
 			user.addAnime(anime); //Adds anime to User and user to Anime
 			saveUser(user);
@@ -281,9 +328,9 @@ public class AnimeListBean implements AnimeList {
 	
 	// Remove Anime to user list
 	@Override
-	public void removeAnimeFromFavorites(Long animeId, String userEmail) throws AnimeException {
+	public void removeAnimeFromFavorites(Long animeId) throws AnimeException {
 		try {
-			User user = getUserById(userEmail);
+			User user = getUserByName(ctx.getCallerPrincipal().toString());
 			Anime anime = getAnimeById(animeId);
 			user.removeAnime(anime); //Removes anime from User and user from Anime
 			saveUser(user);
@@ -294,11 +341,11 @@ public class AnimeListBean implements AnimeList {
 	}
 	
 	// Get User Animes
-	public List<Anime> getUserAnimes(String userEmail) throws AnimeException {
+	public List<Anime> getUserAnimes() throws AnimeException {
 		List<Anime> result = new ArrayList<Anime>();
 		
         Query query = em.createQuery( JPQL_SELECT_ALL_USERANIMES );
-        query.setParameter( PARAM_USER_EMAIL, userEmail );
+        query.setParameter( PARAM_USER_EMAIL, getUserByName(ctx.getCallerPrincipal().toString()).getEmail());
 
         try {
             result = query.getResultList();

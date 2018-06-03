@@ -15,6 +15,7 @@ public interface AnimeList {
 	// ANIMES
 	void saveAnime(Anime a);
 	Anime getAnimeById(long id);
+	Anime getAnimeByName(String animeName);
 	List<Anime> getAnimes();
 	void updateAnime(Anime a);
 	void deleteAnime(Anime a);
@@ -30,12 +31,13 @@ public interface AnimeList {
 	// USER
 	void saveUser(User u);
 	User getUserById(String email);
+	User getUserByName(String userName);
 	List<User> getUsers();
 	
 	// USER ANIME
-	void addAnimeToFavorites(Long animeId, String userEmail);
-	void removeAnimeFromFavorites(Long animeId, String userEmail);
-	List<Anime> getUserAnimes(String userEmail);
+	void addAnimeToFavorites(Long animeId);
+	void removeAnimeFromFavorites(Long animeId);
+	List<Anime> getUserAnimes();
 
 	// POPULATE
 	void populate();

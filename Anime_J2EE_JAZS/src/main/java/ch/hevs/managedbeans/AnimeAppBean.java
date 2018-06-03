@@ -55,7 +55,6 @@ public class AnimeAppBean
 	private long idFavoriteAnime;
 	
 	// Favorites list
-	private String userEmail = "jane@doe.net";
 	private List<Anime> favoritesAnimes;
 	private long idAnimeToRemoveFromFavorites;
 	
@@ -227,15 +226,6 @@ public class AnimeAppBean
 		this.idFavoriteAnime = idFavoriteAnime;
 	}
 
-	// userEmail
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
 	// favoritesAnimes
 	public List<Anime> getFavoritesAnimes() {
 		return favoritesAnimes;
@@ -381,22 +371,22 @@ public class AnimeAppBean
 	
 	public String addAnimeToFavorites()
 	{
-		animeList.addAnimeToFavorites(idFavoriteAnime, userEmail);
-		favoritesAnimes = (List<Anime>) animeList.getUserAnimes(userEmail);
+		animeList.addAnimeToFavorites(idFavoriteAnime);
+		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
 		return "favorites";
 	}
 	
 	public String removeAnimeFromFavorites()
 	{
 		System.out.println("DEBUG : REMOVE ANIME FROM FAVORITES : " + idAnimeToRemoveFromFavorites);		
-		animeList.removeAnimeFromFavorites(idAnimeToRemoveFromFavorites, userEmail);
+		animeList.removeAnimeFromFavorites(idAnimeToRemoveFromFavorites);
 		// Update screen
 		return "favorites";
 	}
 	
 	public String showFavoritesList()
 	{
-		favoritesAnimes = (List<Anime>) animeList.getUserAnimes(userEmail);
+		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
 		return "favorites";
 	}
 	
