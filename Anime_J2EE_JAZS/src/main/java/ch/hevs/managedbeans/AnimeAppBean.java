@@ -375,14 +375,14 @@ public class AnimeAppBean
 	{
 		System.out.println("DEBUG : REMOVE ANIME " + idAnimeToDelete);
 		anime = getAnimeById(idAnimeToDelete);		
-		//animeList.deleteAnime(anime);	
+		animeList.deleteAnime(anime);	
 		return "home";
 	}
 	
 	public String addAnimeToFavorites()
 	{
 		animeList.addAnimeToFavorites(idFavoriteAnime, userEmail);
-		//favoritesAnimes = (List<Anime>) animeList.getUserAnimes(userEmail);
+		favoritesAnimes = (List<Anime>) animeList.getUserAnimes(userEmail);
 		return "favorites";
 	}
 	
@@ -396,7 +396,7 @@ public class AnimeAppBean
 	
 	public String showFavoritesList()
 	{
-		//favoritesAnimes = (List<Anime>) animeList.getUserAnimes(userEmail);
+		favoritesAnimes = (List<Anime>) animeList.getUserAnimes(userEmail);
 		return "favorites";
 	}
 	

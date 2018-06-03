@@ -35,7 +35,7 @@ public interface AnimeList {
 	// USER ANIME
 	void addAnimeToFavorites(Long animeId, String userEmail);
 	void removeAnimeFromFavorites(Long animeId, String userEmail);
-	HashSet<Anime> getUserAnimes(String userEmail);
+	List<Anime> getUserAnimes(String userEmail);
 
 	// POPULATE
 	void populate();

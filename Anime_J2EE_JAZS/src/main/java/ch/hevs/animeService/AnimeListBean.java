@@ -39,6 +39,9 @@ public class AnimeListBean implements AnimeList {
 	private static final String JPQL_SELECT_BY_USER_EMAIL = "SELECT u FROM User u WHERE u.email=:userEmail";
 	private static final String PARAM_USER_EMAIL = "userEmail";
 	private static final String JPQL_SELECT_ALL_USERS = "SELECT u FROM User u";
+	
+	//UserAnimes
+	private static final String JPQL_SELECT_ALL_USERANIMES = "SELECT DISTINCT ua FROM User u LEFT JOIN u.userAnimes ua WHERE u.email=:userEmail";
 
 	
 	// ANIMES
@@ -91,9 +94,11 @@ public class AnimeListBean implements AnimeList {
 
 	// Remove an Anime
 	public void deleteAnime(Anime a) throws AnimeException {
-
+		System.out.println("Try Anime Deletion");
         try {
-            em.remove( a ); 
+//        	em.find(Anime.class, a);
+//            em.remove( a ); 
+            em.remove(em.contains(a) ? a : em.merge(a));	
     		System.out.println("Anime " + a.getAnimeName() + " (" + a.getIdAnime() + ") deleted");
         } catch ( Exception e ) {
             throw new AnimeException( e );
@@ -185,6 +190,7 @@ public class AnimeListBean implements AnimeList {
 	public void deleteStudio(Studio s) throws AnimeException {
 
         try {
+        	em.find(Studio.class, s);
             em.remove( s ); // Cascade in Studio Entity will remove any Anime having that studio
     		System.out.println("Studio " + s.getStudioName() + " (" + s.getIdStudio() + ") deleted");
         } catch ( Exception e ) {
@@ -288,15 +294,22 @@ public class AnimeListBean implements AnimeList {
 	}
 	
 	// Get User Animes
-	public HashSet<Anime> getUserAnimes(String userEmail) throws AnimeException {
-		User user = new User();
-		try {
-			user = getUserById(userEmail);
-		} catch ( Exception e ) {
-			throw new AnimeException( e );
-		}
+	public List<Anime> getUserAnimes(String userEmail) throws AnimeException {
+		List<Anime> result = new ArrayList<Anime>();
 		
-		return (HashSet<Anime>) user.getUserAnimes();
+        Query query = em.createQuery( JPQL_SELECT_ALL_USERANIMES );
+        query.setParameter( PARAM_USER_EMAIL, userEmail );
+
+        try {
+            result = query.getResultList();
+        } catch ( NoResultException e ) {
+            return null;
+        } catch ( Exception e ) {
+            throw new AnimeException( e );
+        }
+        
+        return result;
+
 	}
 	
 	//POPULATE
