@@ -29,7 +29,7 @@ public class AnimeAppBean
 	// EJB
 	private AnimeList animeList;
 	private History history;
-	
+
 	// Display
 	private List<Anime> animes;
 	private List<Studio> studios;
@@ -39,7 +39,7 @@ public class AnimeAppBean
 	private Studio studio;
 	private String studioName;
 	private boolean renderPopulateButton;
-	
+
 	// Add anime
 	private Anime animeToAdd;
 	private Long idAnimeToAdd;	
@@ -49,15 +49,15 @@ public class AnimeAppBean
 	private String animeDescriptionToAdd;
 	private int animeEpisodeDurationToAdd;
 	private int animeNumberOfEpisodesToAdd;
-	
+
 	// Delete anime
 	private long idAnimeToDelete;
 	private long idFavoriteAnime;
-	
+
 	// Favorites list
 	private List<Anime> favoritesAnimes;
 	private long idAnimeToRemoveFromFavorites;
-	
+
 	// History management
 	private List<String> consultedAnimes;
 	private int nbOfConsultedAnimes;
@@ -70,7 +70,7 @@ public class AnimeAppBean
 		InitialContext ctx = new InitialContext();
 		animeList = (AnimeList) ctx.lookup("java:global/Anime_J2EE_JAZS-0.0.1-SNAPSHOT/AnimeListBean!ch.hevs.animeService.AnimeList");
 		history = (History) ctx.lookup("java:global/Anime_J2EE_JAZS-0.0.1-SNAPSHOT/HistoryBean!ch.hevs.animeService.History");
-		
+
 		getContent();
 
 		//disable populateDb button if DB not empty
@@ -142,7 +142,7 @@ public class AnimeAppBean
 	{
 		this.studioName = studioName;
 	}
-	
+
 	public Long getIdAnimeToAdd() {
 		return idAnimeToAdd;
 	}
@@ -207,7 +207,7 @@ public class AnimeAppBean
 	public void setIdAnimeToDelete(long idAnimeToDelete) {
 		this.idAnimeToDelete = idAnimeToDelete;
 	}
-	
+
 	// animeToAdd
 	public Anime getAnimeToAdd() {
 		return animeToAdd;
@@ -301,7 +301,7 @@ public class AnimeAppBean
 		{
 			studioNames.add(s.getStudioName());
 		}
-		
+
 		updateHistory();
 	}
 
@@ -339,15 +339,23 @@ public class AnimeAppBean
 
 	public String addAnime()
 	{
+		animeToAdd = new Anime();
+		// Clear input fields
+		studioName = null;
+		animeDescriptionToAdd = null;
+		animeNameToAdd = null;
+		animeEndDateToAdd = null;
+		animeEpisodeDurationToAdd = 0;
+		animeNumberOfEpisodesToAdd = 0;
+		animeStartDateToAdd = null;
+
 		return "addForm";
 	}
 
 	public String saveNewAnime()
 	{
 		// Set animeToAdd with user input
-		animeToAdd = new Anime();
 		studio = animeList.getStudioByName(studioName);
-		System.out.println("DEBUG : ADD NEW ANIME -> " + studio.getStudioName());
 		animeToAdd.setStudio(studio);
 		animeToAdd.setAnimeDescription(animeDescriptionToAdd);
 		animeToAdd.setAnimeName(animeNameToAdd);
@@ -355,12 +363,15 @@ public class AnimeAppBean
 		animeToAdd.setEpisodeDuration(animeEpisodeDurationToAdd);
 		animeToAdd.setNumberOfEpisodes(animeNumberOfEpisodesToAdd);
 		animeToAdd.setStartDate(animeStartDateToAdd);
-		
-		System.out.println("DEBUG : SAVE ANIME = " + animeToAdd.getAnimeName() + ", "+ animeToAdd.getStudio().getStudioName());
+
+		// Save to DB
 		animeList.saveAnime(animeToAdd);
+
+		// Redirect to home
+		getContent();
 		return "home";
 	}
-	
+
 	public String removeAnime()
 	{
 		System.out.println("DEBUG : REMOVE ANIME " + idAnimeToDelete);
@@ -368,38 +379,37 @@ public class AnimeAppBean
 		animeList.deleteAnime(anime);	
 		return "home";
 	}
-	
+
 	public String addAnimeToFavorites()
 	{
 		animeList.addAnimeToFavorites(idFavoriteAnime);
 		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
 		return "favorites";
 	}
-	
+
 	public String removeAnimeFromFavorites()
-	{
-		System.out.println("DEBUG : REMOVE ANIME FROM FAVORITES : " + idAnimeToRemoveFromFavorites);		
+	{		
 		animeList.removeAnimeFromFavorites(idAnimeToRemoveFromFavorites);
-		// Update screen
+		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
 		return "favorites";
 	}
-	
+
 	public String showFavoritesList()
 	{
 		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
 		return "favorites";
 	}
-	
+
 	public void updateConsultedAnimes(String name){
 		history.addConsultedAnimes(name);
 		System.out.println("DEBUG : LAST ANIME = " + consultedAnimes.get(consultedAnimes.size()-1));
 	}
-	
+
 	public String backHome(){
 		updateHistory();
 		return "home";
 	}
-	
+
 	public void updateHistory()
 	{
 		consultedAnimes = history.getConsultedAnimes();

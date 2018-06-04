@@ -17,7 +17,8 @@
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
     	<h:form>	  
-    		<h:outputText>My favorites</h:outputText>      
+    		<h:commandButton value = "Back" action = "#{animeAppBean.backHome}" class="waves-effect waves-light btn-small"/><br/>
+    		<h:outputText value = "My favorites"></h:outputText><br/>    		     
 	        <ui:repeat value="#{animeAppBean.favoritesAnimes}" var="anime">
 		   		<div class="card-panel cyan lighten-5">  
 		   			<h:panelGroup layout = "block">
