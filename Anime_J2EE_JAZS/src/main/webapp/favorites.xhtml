@@ -22,7 +22,7 @@
 		   		<div class="card-panel cyan lighten-5">  
 		   			<h:panelGroup layout = "block">
 		   				<h:commandLink value="#{anime.animeName}" action = "#{animeAppBean.details}">
-		   					<f:param name = "animeId" value = "anime.idAnime" />
+		   					<f:setPropertyActionListener target="#{animeAppBean.animeId}" value="#{anime.idAnime}" />
 		   				</h:commandLink>
 		   				<h:commandButton value = "Delete" action ="#{animeAppBean.removeAnimeFromFavorites}" class="waves-effect waves-light btn-small">
 		   					<f:setPropertyActionListener target="#{animeAppBean.idAnimeToRemoveFromFavorites}" value="#{anime.idAnime}" />
