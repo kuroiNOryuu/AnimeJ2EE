@@ -62,6 +62,7 @@ public class AnimeAppBean
 	private List<String> consultedAnimes;
 	private int nbOfConsultedAnimes;
 	private String lastConsultedAnime;
+	private boolean fromHome;
 
 	@PostConstruct
 	public void initialize() throws NamingException {
@@ -280,6 +281,15 @@ public class AnimeAppBean
 		this.lastConsultedAnime = lastConsultedAnime;
 	}
 
+	// fromHome
+	public boolean isFromHome() {
+		return fromHome;
+	}
+
+	public void setFromHome(boolean fromHome) {
+		this.fromHome = fromHome;
+	}
+
 	// populateDB
 	public String populate()
 	{
@@ -405,9 +415,15 @@ public class AnimeAppBean
 		System.out.println("DEBUG : LAST ANIME = " + consultedAnimes.get(consultedAnimes.size()-1));
 	}
 
-	public String backHome(){
+	public String back(){
+		if(fromHome == true){
+			updateHistory();
+			return "home";
+		}
+		
 		updateHistory();
-		return "home";
+		return "favorites";
+		
 	}
 
 	public void updateHistory()
