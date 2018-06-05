@@ -12,13 +12,17 @@
     <ui:define name="content">
     	<div class="card-panel cyan lighten-5"> 
 	 	   <h:form>  		
-				<h:outputText value="Name : "/><h:inputText value = "#{animeAppBean.animeNameToAdd}"/><br/>
-			   	<h:outputText value="Start date : "/><h:inputText value = "#{animeAppBean.animeStartDateToAdd}" class="datepicker">
+				<h:outputText value="Name : "/><h:inputText id ="animename" value = "#{animeAppBean.animeNameToAdd}" required="true" requiredMessage="Please enter a name"/><br/>
+				<h:message for="animename" style="color: red;" />
+			   	<h:outputText value="Start date : "/><h:inputText id = "startdate" binding="#{firstDate}" value = "#{animeAppBean.animeStartDateToAdd}" class="datepicker" required="true" requiredMessage="Please enter start date">
 			   		<f:convertDateTime pattern="yyyy-M-d"/>
 			   	</h:inputText><br/>
-			   	<h:outputText value="End date : "/><h:inputText value = "#{animeAppBean.animeEndDateToAdd}" class="datepicker">
+			   	<h:message for="startdate" style="color: red;" />
+			   	<h:outputText value="End date : "/><h:inputText validator="dateValidator" value = "#{animeAppBean.animeEndDateToAdd}" class="datepicker">
+			   		<f:attribute name="firstDate" value="#{firstDate}" />
 			   		<f:convertDateTime pattern="yyyy-M-d"/>
 			   	</h:inputText><br/>
+			   	<h:messages globalOnly="true" style="color: red;"/>
 			   	<h:outputText value="Episode duration : "/><h:inputText value = "#{animeAppBean.animeEpisodeDurationToAdd}"/><br/>
 			   	<h:outputText value="Number of episodes : "/><h:inputText value = "#{animeAppBean.animeNumberOfEpisodesToAdd}"/><br/>
 			   	<h:outputText value = "Description"/><h:inputTextarea value = "#{animeAppBean.animeDescriptionToAdd}"/><br/>
