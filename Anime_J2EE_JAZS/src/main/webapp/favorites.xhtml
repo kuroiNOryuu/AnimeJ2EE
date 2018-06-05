@@ -18,10 +18,12 @@
     <ui:define name="content">
     	<h:form>	  
     		<h:commandButton value = "Back" action = "home" class="waves-effect waves-light btn-small"/><br/>
-    		<h:outputText value = "My favorites"></h:outputText><br/>    		     
-	        <ui:repeat value="#{animeAppBean.favoritesAnimes}" var="anime">
+    		<h:outputText value = "My favorites"/><br/>    
+    		<h:outputText rendered = "#{not animeAppBean.favoritesContainsSomething}" value = "Your list is empty. Go to home page to add new anime here !"/>	
+    		<h:form rendered = "#{animeAppBean.favoritesContainsSomething}">
+    			<ui:repeat value="#{animeAppBean.favoritesAnimes}" var="anime">
 		   		<div class="card-panel cyan lighten-5">  
-		   			<h:panelGroup layout = "block">
+		   			<h:panelGroup layout = "block" >
 		   				<h:commandLink value="#{anime.animeName}" action = "#{animeAppBean.details}">
 		   					<f:setPropertyActionListener target="#{animeAppBean.animeId}" value="#{anime.idAnime}" />
 		   					<f:setPropertyActionListener target="#{animeAppBean.fromHome}" value="false" />
@@ -37,6 +39,7 @@
 		   			</h:panelGroup>
 			   	</div>
 		   	</ui:repeat>
+    		</h:form>	     	        
    		</h:form>
     </ui:define>
 </ui:composition>

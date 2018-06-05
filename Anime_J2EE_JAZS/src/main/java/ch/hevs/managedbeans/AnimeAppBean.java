@@ -5,22 +5,16 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.annotation.PreDestroy;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import ch.hevs.animeService.AnimeList;
 import ch.hevs.animeService.History;
 import ch.hevs.businessobject.Anime;
 import ch.hevs.businessobject.Studio;
 
 /**
- * TransferBean.java
+ * AnimeAppBean.java
  * 
  */
 
@@ -57,6 +51,7 @@ public class AnimeAppBean
 	// Favorites list
 	private List<Anime> favoritesAnimes;
 	private long idAnimeToRemoveFromFavorites;
+	private boolean favoritesContainsSomething;
 
 	// History management
 	private List<String> consultedAnimes;
@@ -73,6 +68,7 @@ public class AnimeAppBean
 		history = (History) ctx.lookup("java:global/Anime_J2EE_JAZS-0.0.1-SNAPSHOT/HistoryBean!ch.hevs.animeService.History");
 
 		getContent();
+		setFavoritesContainsSomething(false);
 
 		//disable populateDb button if DB not empty
 		setRenderPopulateButton(isDbNotPopulated());
@@ -254,6 +250,15 @@ public class AnimeAppBean
 		this.idAnimeToRemoveFromFavorites = idAnimeToRemoveFromFavorites;
 	}
 
+	// favoritesIsEmpty
+	public boolean isFavoritesContainsSomething() {
+		return favoritesContainsSomething;
+	}
+
+	public void setFavoritesContainsSomething(boolean favoritesContainsSomething) {
+		this.favoritesContainsSomething = favoritesContainsSomething;
+	}
+
 	// consultedAnimes
 	public List<String> getConsultedAnimes() {
 		return consultedAnimes;
@@ -303,7 +308,6 @@ public class AnimeAppBean
 	// Get necessary content for homepage display (full anime list)
 	public void getContent()
 	{
-		System.out.println("DEBUG : GET CONTENT");
 		animes = animeList.getAnimes();
 		studios = animeList.getStudios();
 		studioNames = new ArrayList<String>();
@@ -342,11 +346,13 @@ public class AnimeAppBean
 		return "details";
 	}
 
+	// Get an anime by its ID
 	public Anime getAnimeById(long id) 
 	{
 		return animeList.getAnimeById(id);
 	}
 
+	// Go to add anime page
 	public String addAnime()
 	{
 		animeToAdd = new Anime();
@@ -362,6 +368,7 @@ public class AnimeAppBean
 		return "addForm";
 	}
 
+	// Save anime to DB and come back to home page
 	public String saveNewAnime()
 	{
 		// Set animeToAdd with user input
@@ -382,6 +389,7 @@ public class AnimeAppBean
 		return "home";
 	}
 
+	// Remove anime from DB and refresh home page
 	public String removeAnime()
 	{
 		System.out.println("DEBUG : REMOVE ANIME " + idAnimeToDelete);
@@ -390,10 +398,12 @@ public class AnimeAppBean
 		return "home";
 	}
 
+	// Add an anime to favorites list and display favorites page
 	public String addAnimeToFavorites()
 	{
 		animeList.addAnimeToFavorites(idFavoriteAnime);
 		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
+		
 		return "favorites";
 	}
 
@@ -407,6 +417,13 @@ public class AnimeAppBean
 	public String showFavoritesList()
 	{
 		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
+		
+		System.out.println("DEBUG : IS EMPTY = " + favoritesAnimes.isEmpty());
+		// If list is empty, adapt display
+		if (!favoritesAnimes.isEmpty())
+			setFavoritesContainsSomething(true);
+				
+		System.out.println("DEBUG : HAS FAVORITES = " + favoritesContainsSomething);
 		return "favorites";
 	}
 
