@@ -421,7 +421,7 @@ public class AnimeAppBean
 		
 		System.out.println("DEBUG : IS EMPTY = " + favoritesAnimes.isEmpty());
 		// If list is empty, adapt display
-		if (!favoritesAnimes.isEmpty())
+		if (favoritesAnimes.get(0) != null)
 			setFavoritesContainsSomething(true);
 				
 		System.out.println("DEBUG : HAS FAVORITES = " + favoritesContainsSomething);
