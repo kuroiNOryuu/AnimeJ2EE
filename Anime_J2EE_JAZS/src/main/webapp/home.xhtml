@@ -20,7 +20,8 @@
 	        <div class="center-align h1"><h:outputText value = "Animes list"/></div>
 	        <div class="container">  
 		        <h:commandButton rendered="#{animeAppBean.renderPopulateButton}" value="Populate DB" action="#{animeAppBean.populate}" class="waves-effect waves-light btn-small z-depth-3 pulse"/><br/>
-		        <h:outputText value = "Consulted animes : #{animeAppBean.nbOfConsultedAnimes}, last consulted : #{animeAppBean.lastConsultedAnime}"/><br/><br/>
+		        <h:outputText value = "Consulted animes : #{animeAppBean.nbOfConsultedAnimes}, last consulted : #{animeAppBean.lastConsultedAnime} | "/>
+		        <h:commandLink value = "see complete history" action = "history"/><br/><br/>
 		        <h:commandButton value="New" action="#{animeAppBean.addAnime}" class="waves-effect waves-light btn-small"/> 
 		        <h:commandButton value="Favorites" action="#{animeAppBean.showFavoritesList}" class="waves-effect waves-light btn-small"/><br/>
 	      		<ui:repeat value="#{animeAppBean.animes}" var="anime">

@@ -1,16 +1,17 @@
 package ch.hevs.managedbeans;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import ch.hevs.animeService.AnimeList;
 import ch.hevs.animeService.History;
 import ch.hevs.businessobject.Anime;
+import ch.hevs.businessobject.HistoryItem;
 import ch.hevs.businessobject.Studio;
 
 /**
@@ -54,7 +55,7 @@ public class AnimeAppBean
 	private boolean favoritesContainsSomething;
 
 	// History management
-	private List<String> consultedAnimes;
+	private List<HistoryItem> consultedAnimes;
 	private int nbOfConsultedAnimes;
 	private String lastConsultedAnime;
 	private boolean fromHome;
@@ -140,6 +141,7 @@ public class AnimeAppBean
 		this.studioName = studioName;
 	}
 
+	// idAnimeToAdd
 	public Long getIdAnimeToAdd() {
 		return idAnimeToAdd;
 	}
@@ -148,6 +150,7 @@ public class AnimeAppBean
 		this.idAnimeToAdd = idAnimeToAdd;
 	}
 
+	// animeNameToAdd
 	public String getAnimeNameToAdd() {
 		return animeNameToAdd;
 	}
@@ -156,6 +159,7 @@ public class AnimeAppBean
 		this.animeNameToAdd = animeNameToAdd;
 	}
 
+	// animeStartDateToAdd
 	public Date getAnimeStartDateToAdd() {
 		return animeStartDateToAdd;
 	}
@@ -164,6 +168,7 @@ public class AnimeAppBean
 		this.animeStartDateToAdd = animeStartDateToAdd;
 	}
 
+	// animeEndDateToAdd
 	public Date getAnimeEndDateToAdd() {
 		return animeEndDateToAdd;
 	}
@@ -172,6 +177,7 @@ public class AnimeAppBean
 		this.animeEndDateToAdd = animeEndDateToAdd;
 	}
 
+	// animeDescriptionToAdd
 	public String getAnimeDescriptionToAdd() {
 		return animeDescriptionToAdd;
 	}
@@ -180,6 +186,7 @@ public class AnimeAppBean
 		this.animeDescriptionToAdd = animeDescriptionToAdd;
 	}
 
+	// animeEpisodeDurationToAdd
 	public int getAnimeEpisodeDurationToAdd() {
 		return animeEpisodeDurationToAdd;
 	}
@@ -188,6 +195,7 @@ public class AnimeAppBean
 		this.animeEpisodeDurationToAdd = animeEpisodeDurationToAdd;
 	}
 
+	// animeNumberOfEpisodesToAdd
 	public int getAnimeNumberOfEpisodesToAdd() {
 		return animeNumberOfEpisodesToAdd;
 	}
@@ -260,11 +268,11 @@ public class AnimeAppBean
 	}
 
 	// consultedAnimes
-	public List<String> getConsultedAnimes() {
+	public List<HistoryItem> getConsultedAnimes() {
 		return consultedAnimes;
 	}
 
-	public void setConsultedAnimes(List<String> consultedAnimes) {
+	public void setConsultedAnimes(List<HistoryItem> consultedAnimes) {
 		this.consultedAnimes = consultedAnimes;
 	}
 
@@ -408,6 +416,7 @@ public class AnimeAppBean
 		return "favorites";
 	}
 
+	// Remove anime from favorites list and refresh view
 	public String removeAnimeFromFavorites()
 	{		
 		animeList.removeAnimeFromFavorites(idAnimeToRemoveFromFavorites);
@@ -415,24 +424,29 @@ public class AnimeAppBean
 		return "favorites";
 	}
 
+	// Go to favorites.xhtml
 	public String showFavoritesList()
 	{
 		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
 		
-		System.out.println("DEBUG : IS EMPTY = " + favoritesAnimes.isEmpty());
 		// If list is empty, adapt display
 		if (favoritesAnimes.get(0) != null)
 			setFavoritesContainsSomething(true);
 				
-		System.out.println("DEBUG : HAS FAVORITES = " + favoritesContainsSomething);
 		return "favorites";
 	}
 
+	// Add anime to consulted animes list
 	public void updateConsultedAnimes(String name){
-		history.addConsultedAnimes(name);
-		System.out.println("DEBUG : LAST ANIME = " + consultedAnimes.get(consultedAnimes.size()-1));
+		Date now = new Date();
+		SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd hh:mm");
+
+		HistoryItem item = new HistoryItem(name, ft.format(now));
+		history.addConsultedAnimes(item);
+
 	}
 
+	// Go back from details to previous page (home or favorites)
 	public String back(){
 		if(fromHome == true){
 			updateHistory();
@@ -444,11 +458,14 @@ public class AnimeAppBean
 		
 	}
 
+	// Update needed variables in order to display a summary on home page
 	public void updateHistory()
 	{
 		consultedAnimes = history.getConsultedAnimes();
 		nbOfConsultedAnimes = consultedAnimes.size();
 		if(nbOfConsultedAnimes > 0)
-			lastConsultedAnime = consultedAnimes.get(consultedAnimes.size()-1);
+			lastConsultedAnime = consultedAnimes.get(consultedAnimes.size()-1).getName();
+		else
+			lastConsultedAnime = "none";
 	}
 }

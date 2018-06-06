@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import ch.hevs.businessobject.HistoryItem;
+
 @Local
 public interface History {
 	
-	void addConsultedAnimes(String name);
-	List<String> getConsultedAnimes();
+	void addConsultedAnimes(HistoryItem item);
+	List<HistoryItem> getConsultedAnimes();
 }

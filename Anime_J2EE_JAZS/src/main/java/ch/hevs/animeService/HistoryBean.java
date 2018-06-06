@@ -7,14 +7,16 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Stateful;
 
+import ch.hevs.businessobject.HistoryItem;
+
 @Stateful
 public class HistoryBean implements History{
 
-	private List<String> consultedAnimes;
+	private List<HistoryItem> consultedAnimes;
 	
 	@PostConstruct
 	public void initialize(){
-		consultedAnimes = new ArrayList<String>();
+		consultedAnimes = new ArrayList<HistoryItem>();
 	}
 	
 	@PreDestroy
@@ -23,12 +25,12 @@ public class HistoryBean implements History{
 	}
 	
 	@Override
-	public void addConsultedAnimes(String name) {
-		consultedAnimes.add(name);	
+	public void addConsultedAnimes(HistoryItem item) {
+		consultedAnimes.add(item);	
 	}
 
 	@Override
-	public List<String> getConsultedAnimes() {
+	public List<HistoryItem> getConsultedAnimes() {
 		return consultedAnimes;
 	}
 
