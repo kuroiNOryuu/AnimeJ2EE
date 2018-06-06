@@ -403,6 +403,7 @@ public class AnimeAppBean
 	{
 		animeList.addAnimeToFavorites(idFavoriteAnime);
 		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
+		setFavoritesContainsSomething(true);
 		
 		return "favorites";
 	}
