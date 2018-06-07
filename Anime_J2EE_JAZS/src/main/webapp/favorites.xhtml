@@ -19,10 +19,10 @@
     <div class="center-align h1"><h:outputText value = "My Favourites"/></div>
 	<div class="container">   
     	<h:form>	  
-    		<h:commandButton value = "Back" action = "home" class="waves-effect waves-light btn-small"/><br/>  
-    		<h:outputText rendered = "#{not animeAppBean.favoritesContainsSomething}" value = "Your list is empty. Go to home page to add new anime here !"/>	
+    		<h:commandButton value = "Back" action = "home" class="waves-effect waves-light btn-small"/><br/>  	
     			<ui:repeat value="#{animeAppBean.favoritesAnimes}" var="anime">
-		   		<div class="card-panel cyan lighten-5">  
+		   		<div class="card-panel cyan lighten-5"> 
+		   			<h:outputText rendered = "#{not animeAppBean.favoritesContainsSomething}" value = "Your list is empty. Go to home page to add new anime here !"/> 
 		   			<h:panelGroup rendered = "#{animeAppBean.favoritesContainsSomething}" layout = "block" >
 		   			<div class="row">
 			   			      <div class="col s10 h4">	

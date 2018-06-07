@@ -412,15 +412,25 @@ public class AnimeAppBean
 		animeList.addAnimeToFavorites(idFavoriteAnime);
 		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
 		setFavoritesContainsSomething(true);
-		
+
 		return "favorites";
 	}
 
 	// Remove anime from favorites list and refresh view
 	public String removeAnimeFromFavorites()
-	{		
+	{	
+		
 		animeList.removeAnimeFromFavorites(idAnimeToRemoveFromFavorites);
+		// If list is empty, adapt display
+		if (favoritesAnimes.size() == 1)
+			setFavoritesContainsSomething(false);
+				
 		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
+
+		// If list is empty, adapt display
+		if (favoritesAnimes.get(0) != null)
+			setFavoritesContainsSomething(true);
+
 		return "favorites";
 	}
 
@@ -428,11 +438,11 @@ public class AnimeAppBean
 	public String showFavoritesList()
 	{
 		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
-		
+
 		// If list is empty, adapt display
 		if (favoritesAnimes.get(0) != null)
 			setFavoritesContainsSomething(true);
-				
+
 		return "favorites";
 	}
 
@@ -452,10 +462,10 @@ public class AnimeAppBean
 			updateHistory();
 			return "home";
 		}
-		
+
 		updateHistory();
 		return "favorites";
-		
+
 	}
 
 	// Update needed variables in order to display a summary on home page
