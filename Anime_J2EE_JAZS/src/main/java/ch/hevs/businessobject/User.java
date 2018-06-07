@@ -28,8 +28,7 @@ public class User {
 	//private Set<UserAnime> userAnimes;
 
 	// New version without supp element
-	@ManyToMany(cascade = CascadeType.ALL)
-	@OrderBy("animeName")
+	@ManyToMany(mappedBy = "users")
 	private Set<Anime> userAnimes;
 	
 	// Helper Methods
