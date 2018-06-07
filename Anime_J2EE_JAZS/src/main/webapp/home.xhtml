@@ -20,10 +20,10 @@
 	        <div class="center-align h1"><h:outputText value = "Animes list"/></div>
 	        <div class="container">  
 		        <h:commandButton rendered="#{animeAppBean.renderPopulateButton}" value="Populate DB" action="#{animeAppBean.populate}" class="waves-effect waves-light btn-small z-depth-3 pulse"/><br/>
-		        <h:outputText value = "Consulted animes : #{animeAppBean.nbOfConsultedAnimes}, last consulted : #{animeAppBean.lastConsultedAnime} | "/>
-		        <h:commandLink value = "see complete history" action = "history"/><br/><br/>
-		        <h:commandButton value="New" action="#{animeAppBean.addAnime}" class="waves-effect waves-light btn-small"/> 
-		        <h:commandButton value="Favorites" action="#{animeAppBean.showFavoritesList}" class="waves-effect waves-light btn-small"/><br/>
+		        <h:outputText rendered="#{not animeAppBean.renderPopulateButton}" value = "Consulted animes : #{animeAppBean.nbOfConsultedAnimes}, last consulted : #{animeAppBean.lastConsultedAnime} | "/>
+		        <h:commandLink rendered="#{not animeAppBean.renderPopulateButton}" value = "see complete history" action = "history"/><br/><br/>
+		        <h:commandButton rendered="#{not animeAppBean.renderPopulateButton}" value="New" action="#{animeAppBean.addAnime}" class="waves-effect waves-light btn-small"/> 
+		        <h:commandButton rendered="#{not animeAppBean.renderPopulateButton}" value="Favorites" action="#{animeAppBean.showFavoritesList}" class="waves-effect waves-light btn-small"/><br/>
 	      		<ui:repeat value="#{animeAppBean.animes}" var="anime">
 			   		<div class="card-panel cyan lighten-5">  
 			   			<h:panelGroup layout = "block">
