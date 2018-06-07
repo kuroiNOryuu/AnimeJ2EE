@@ -26,7 +26,7 @@ public class Anime {
 	@Column(name = "ANIME_ID", unique = true, nullable = false)
 	private Long idAnime;
 	
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String animeName;
 	@Temporal(TemporalType.DATE)
 	private Date startDate;
