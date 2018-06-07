@@ -75,6 +75,7 @@ public class AnimeAppBean
 		setRenderPopulateButton(isDbNotPopulated());
 	}
 
+	// Getters & setters ------------------------------------------------------------------------------------------------------------------>
 	// animes
 	public List<Anime> getAnimes()
 	{
@@ -303,6 +304,7 @@ public class AnimeAppBean
 		this.fromHome = fromHome;
 	}
 
+	// Methods ------------------------------------------------------------------------------------------------------------------------------>
 	// populateDB
 	public String populate()
 	{
@@ -347,23 +349,16 @@ public class AnimeAppBean
 	}
 
 	// go to details page
-	public String details()
-	{		
-		anime = getAnimeById(animeId);
+	public String details(){		
+		anime = animeList.getAnimeById(animeId);
 		updateConsultedAnimes(anime.getAnimeName());
 		return "details";
 	}
 
-	// Get an anime by its ID
-	public Anime getAnimeById(long id) 
-	{
-		return animeList.getAnimeById(id);
-	}
-
 	// Go to add anime page
-	public String addAnime()
-	{
+	public String addAnime(){		
 		animeToAdd = new Anime();
+		
 		// Clear input fields
 		studioName = null;
 		animeDescriptionToAdd = null;
@@ -377,8 +372,7 @@ public class AnimeAppBean
 	}
 
 	// Save anime to DB and come back to home page
-	public String saveNewAnime()
-	{
+	public String saveNewAnime(){
 		// Set animeToAdd with user input
 		studio = animeList.getStudioByName(studioName);
 		animeToAdd.setStudio(studio);
@@ -398,17 +392,15 @@ public class AnimeAppBean
 	}
 
 	// Remove anime from DB and refresh home page
-	public String removeAnime()
-	{
-		anime = getAnimeById(idAnimeToDelete);		
+	public String removeAnime(){
+		anime = animeList.getAnimeById(idAnimeToDelete);		
 		animeList.deleteAnime(anime);	
 		getContent();
 		return "home";
 	}
 
 	// Add an anime to favorites list and display favorites page
-	public String addAnimeToFavorites()
-	{
+	public String addAnimeToFavorites(){
 		animeList.addAnimeToFavorites(idFavoriteAnime);
 		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
 		setFavoritesContainsSomething(true);
@@ -417,26 +409,21 @@ public class AnimeAppBean
 	}
 
 	// Remove anime from favorites list and refresh view
-	public String removeAnimeFromFavorites()
-	{	
-		
+	public String removeAnimeFromFavorites(){	
+		// Remove anime
 		animeList.removeAnimeFromFavorites(idAnimeToRemoveFromFavorites);
+		
 		// If list is empty, adapt display
 		if (favoritesAnimes.size() == 1)
 			setFavoritesContainsSomething(false);
 				
 		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
 
-		// If list is empty, adapt display
-		if (favoritesAnimes.get(0) != null)
-			setFavoritesContainsSomething(true);
-
 		return "favorites";
 	}
 
 	// Go to favorites.xhtml
-	public String showFavoritesList()
-	{
+	public String showFavoritesList(){
 		favoritesAnimes = (List<Anime>) animeList.getUserAnimes();
 
 		// If list is empty, adapt display
@@ -469,8 +456,7 @@ public class AnimeAppBean
 	}
 
 	// Update needed variables in order to display a summary on home page
-	public void updateHistory()
-	{
+	public void updateHistory()	{
 		consultedAnimes = history.getConsultedAnimes();
 		nbOfConsultedAnimes = consultedAnimes.size();
 		if(nbOfConsultedAnimes > 0)

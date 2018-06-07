@@ -9,9 +9,12 @@
 
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
-    <div class="container">
-    	<div class="card-panel cyan lighten-5"> 
-	 	   <h:form>  		
+	    <div class="container">
+		    <h:form>
+    			<h:commandButton value = "Back" action = "home" class="waves-effect waves-light btn-small"/><br/>
+		    </h:form>
+	    	<div class="card-panel cyan lighten-5"> 
+	 		<h:form>  		
 				<h:outputText value="Name : "/><h:inputText id ="animename" value = "#{animeAppBean.animeNameToAdd}" required="true" requiredMessage="Please enter a name"/><br/>
 				<h:message for="animename" style="color: red;" /><br/>
 			   	<h:outputText value="Start date : "/><h:inputText id = "startdate" binding="#{firstDate}" value = "#{animeAppBean.animeStartDateToAdd}" class="datepicker" required="true" requiredMessage="Please enter start date">
