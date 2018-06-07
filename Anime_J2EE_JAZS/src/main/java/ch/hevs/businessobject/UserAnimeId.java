@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 
 //@Embeddable
 public class UserAnimeId implements Serializable{
-//	Old version with join table and supp element
+/*	Old version with join table and supp element */
 	
 //	//Relations
 //	private User user;

@@ -18,7 +18,7 @@ import javax.persistence.Transient;
 //	@AssociationOverride(name = "userAnimeId.user", 
 //		joinColumns = @JoinColumn(name = "USER_ID")) })
 public class UserAnime {
-//	Old version with join table and supp element
+/*	Old version with join table and supp element */
 	
 //	// Id composed by user and anime
 //	@EmbeddedId

@@ -19,7 +19,6 @@ import ch.hevs.businessobject.User;
 import ch.hevs.exception.AnimeException;
 
 @Stateless
-//@RolesAllowed(value = { "user" })
 public class AnimeListBean implements AnimeList {
 
 	@PersistenceContext(name = "animePU")
@@ -122,8 +121,8 @@ public class AnimeListBean implements AnimeList {
 
 	// Remove an Anime
 	public void deleteAnime(Anime a) throws AnimeException {
-		System.out.println("Try Anime Deletion");
-        try {
+
+		try {
             em.remove( em.find(Anime.class, a.getIdAnime()) ); 
     		System.out.println("Anime " + a.getAnimeName() + " (" + a.getIdAnime() + ") deleted");
         } catch ( Exception e ) {
@@ -192,6 +191,7 @@ public class AnimeListBean implements AnimeList {
             throw new AnimeException( e );
         }
 		return result;
+		
 	}
 
 	// Get All Studios
@@ -322,11 +322,13 @@ public class AnimeListBean implements AnimeList {
 		} catch ( Exception e ) {
 			throw new AnimeException( e );
 		}
+		
 	}
 	
 	// Remove Anime to user list
 	@Override
 	public void removeAnimeFromFavorites(Long animeId) throws AnimeException {
+		
 		try {
 			User user = getUserByName(ctx.getCallerPrincipal().toString());
 			Anime anime = getAnimeById(animeId);
@@ -336,6 +338,7 @@ public class AnimeListBean implements AnimeList {
 		} catch ( Exception e ) {
 			throw new AnimeException( e );
 		}
+		
 	}
 	
 	// Get User Animes
