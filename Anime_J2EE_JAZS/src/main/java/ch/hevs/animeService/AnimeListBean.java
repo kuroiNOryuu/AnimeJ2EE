@@ -124,9 +124,7 @@ public class AnimeListBean implements AnimeList {
 	public void deleteAnime(Anime a) throws AnimeException {
 		System.out.println("Try Anime Deletion");
         try {
-//        	em.find(Anime.class, a);
-//            em.remove( a ); 
-            em.remove(em.contains(a) ? a : em.merge(a));	
+            em.remove( em.find(Anime.class, a.getIdAnime()) ); 
     		System.out.println("Anime " + a.getAnimeName() + " (" + a.getIdAnime() + ") deleted");
         } catch ( Exception e ) {
             throw new AnimeException( e );

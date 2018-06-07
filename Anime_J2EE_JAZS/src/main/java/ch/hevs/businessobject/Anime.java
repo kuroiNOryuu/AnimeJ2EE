@@ -43,7 +43,7 @@ public class Anime {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Studio studio;
 	
-	@ManyToMany(mappedBy="userAnimes")
+	@ManyToMany(mappedBy="userAnimes", cascade = CascadeType.ALL)
 	private Set<User> users;
 	
 	// Helper Methods

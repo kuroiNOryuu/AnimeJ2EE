@@ -1,6 +1,5 @@
 package ch.hevs.animeService;
 
-import java.util.HashSet;
 import java.util.List;
 
 import javax.ejb.Local;

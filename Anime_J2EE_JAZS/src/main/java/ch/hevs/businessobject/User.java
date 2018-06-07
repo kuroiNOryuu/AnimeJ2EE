@@ -3,10 +3,12 @@ package ch.hevs.businessobject;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
@@ -26,7 +28,8 @@ public class User {
 	//private Set<UserAnime> userAnimes;
 
 	// New version without supp element
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
+	@OrderBy("animeName")
 	private Set<Anime> userAnimes;
 	
 	// Helper Methods
