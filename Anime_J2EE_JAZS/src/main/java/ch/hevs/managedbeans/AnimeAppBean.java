@@ -400,9 +400,9 @@ public class AnimeAppBean
 	// Remove anime from DB and refresh home page
 	public String removeAnime()
 	{
-		System.out.println("DEBUG : REMOVE ANIME " + idAnimeToDelete);
 		anime = getAnimeById(idAnimeToDelete);		
 		animeList.deleteAnime(anime);	
+		getContent();
 		return "home";
 	}
 
