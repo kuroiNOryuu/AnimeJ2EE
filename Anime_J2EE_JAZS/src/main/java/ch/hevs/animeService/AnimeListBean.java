@@ -33,14 +33,14 @@ public class AnimeListBean implements AnimeList {
 	private static final String PARAM_IDANIME = "idAnime";
 	private static final String JPQL_SELECT_BY_ANIMENAME = "SELECT a FROM Anime a WHERE a.animeName=:animeName";
 	private static final String PARAM_ANIMENAME = "animeName";
-	private static final String JPQL_SELECT_ALL_ANIMES = "SELECT a FROM Anime a";
+	private static final String JPQL_SELECT_ALL_ANIMES = "SELECT a FROM Anime a ORDER BY a.animeName";
 	
 	//Studio
 	private static final String JPQL_SELECT_BY_IDSTUDIO = "SELECT s FROM Studio s WHERE s.idStudio=:idStudio";
 	private static final String PARAM_IDSTUDIO = "idStudio";
 	private static final String JPQL_SELECT_BY_STUDIONAME = "SELECT s FROM Studio s WHERE s.studioName=:studioName";
 	private static final String PARAM_STUDIONAME = "studioName";
-	private static final String JPQL_SELECT_ALL_STUDIOS = "SELECT s FROM Studio s";
+	private static final String JPQL_SELECT_ALL_STUDIOS = "SELECT s FROM Studio s ORDER BY s.studioName";
 
 	//User
 	private static final String JPQL_SELECT_BY_USER_EMAIL = "SELECT u FROM User u WHERE u.email=:userEmail";
