@@ -50,7 +50,7 @@ public class AnimeListBean implements AnimeList {
 	private static final String JPQL_SELECT_ALL_USERS = "SELECT u FROM User u";
 	
 	//UserAnimes
-	private static final String JPQL_SELECT_ALL_USERANIMES = "SELECT DISTINCT ua FROM User u LEFT JOIN u.userAnimes ua WHERE u.email=:userEmail";
+	private static final String JPQL_SELECT_ALL_USERANIMES = "SELECT DISTINCT ua FROM User u LEFT JOIN u.userAnimes ua WHERE u.email=:userEmail ORDER BY ua.animeName";
 
 	
 	// ANIMES
